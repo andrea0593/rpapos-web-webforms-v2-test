@@ -1,7 +1,28 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Core.Master" AutoEventWireup="true" CodeBehind="Test.aspx.cs" Inherits="rpapos_web_webforms.Test" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
+
+<asp:Content ID="NavContent" ContentPlaceHolderID="FormNav" runat="server">
+    <div class="col-lg-10">
+                    <h2>Basic Form</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html">Home</a>
+                        </li>
+                        <li>
+                            <a>Forms</a>
+                        </li>
+                        <li class="active">
+                            <strong>Basic Form</strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+</asp:Content>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="FormBody" runat="server">
      
             <div class="row">
             <div class="col-lg-7">

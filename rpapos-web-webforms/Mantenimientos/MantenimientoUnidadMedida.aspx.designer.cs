@@ -10,42 +10,51 @@
 namespace rpapos_web_webforms {
     
     
-    public partial class Core {
+    public partial class MantenimientoUnidadMedida {
         
         /// <summary>
-        /// head control.
+        /// TransferFileBtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
+        protected global::System.Web.UI.WebControls.Button TransferFileBtn;
         
         /// <summary>
-        /// LiteralUserName control.
+        /// gridViewUnidadMedida control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal LiteralUserName;
+        protected global::System.Web.UI.WebControls.GridView gridViewUnidadMedida;
         
         /// <summary>
-        /// FormNav control.
+        /// lblModalTitle control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder FormNav;
+        protected global::System.Web.UI.WebControls.Label lblModalTitle;
         
         /// <summary>
-        /// FormBody control.
+        /// lblModalBody control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder FormBody;
+        protected global::System.Web.UI.WebControls.Label lblModalBody;
+        
+        /// <summary>
+        /// SendToBillingBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button SendToBillingBtn;
     }
 }
