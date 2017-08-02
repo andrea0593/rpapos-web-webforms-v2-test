@@ -13,6 +13,15 @@ namespace rpapos_web_webforms {
     public partial class Login {
         
         /// <summary>
+        /// LabelDomain control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelDomain;
+        
+        /// <summary>
         /// TextBoxUsername control.
         /// </summary>
         /// <remarks>

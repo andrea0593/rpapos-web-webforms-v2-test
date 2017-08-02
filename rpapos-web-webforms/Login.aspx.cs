@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -10,49 +11,61 @@ namespace rpapos_web_webforms
 {
     public partial class Login : System.Web.UI.Page
     {
+        private string subDomain;
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            var url = HttpContext.Current.Request.Url.Host.ToString().ToLower().Split('.');
+
+            var domain = HttpContext.Current.Request.Url.Host.ToString().ToLower();
+            if (domain.Contains("-test")) {
+            domain =     domain.Replace("-test", "");
+            }
+            var url = domain.Split('.');
+
+#if DEBUG
+            domain = domain + " DEBUG";
+#endif
 
 
-            switch (url[0])
+
+            LabelDomain.Text = domain;
+            var connectionString = "";
+            if (url.Count() > 0)
             {
-                case "localhost":
-                    {
+               subDomain = url[0];
+ 
+                connectionString = DAL.connectionStringFromSubdomain(subDomain);
+           
+                var logo = DAL.clientLogo(connectionString);
 
-                        Response.Cookies["UserSettings"]["server"] = "localhost";
+                var logoB64 = DAL.ImagetoBase(logo);
+                Session["SubDomain"] = subDomain;
+                Session["Logo"] = logoB64;
 
-                        Session["db"] = "localhost";
-
-
-                    }
-                    break;
-                default:
-                    {
-                        //setiar imagen
-                    }
-                    break;
-
+                imgEmpresa.ImageUrl =logoB64;
             }
 
-
-
+ 
 
         }
 
         protected void ButtonLogin_Click(object sender, EventArgs e)
         {
 
-            string connetionString = @"Data Source=KRUDOS-W10\SQLEXPRESS;Initial Catalog=POS;User ID=SA;Password=Chimlapu69";
-            var connection = new SqlConnection(connetionString);
+            var connectionString = DAL.connectionStringFromSubdomain(subDomain);
+
+
+            var connection = new SqlConnection(connectionString);
             var pUserName = TextBoxUsername.Text;
             var pPassword = TextBoxPassword.Text;
             try
             {
                 connection.Open();
 
-                var sql = "Select * From tbl_Usuario  WHERE (UserName = '" + pUserName + "' OR EMail = '" + pUserName + "') AND Clave = '" + pPassword + "';";
+                var sql = "select * , t2.Descripcion as Estacion_Trabajo_Descripcion from tbl_usuario as t1"+
+                    " inner join tbl_Estacion_Trabajo as t2 on t1.Estacion_Trabajo =t2.Estacion_Trabajo "+
+                    " WHERE (t1.UserName = '" + pUserName + "' OR t1.EMail = '" + pUserName + 
+                    "') AND t1.Clave = '" + pPassword + "';";
                 var command = new SqlCommand(sql, connection);
 
 
@@ -61,14 +74,24 @@ namespace rpapos_web_webforms
 
                 if (dataReader.Read())
                 {
-                    Session["user"] = pUserName;
+                    Session["User"] = pUserName;
+
+                    Session["Estacion_Trabajo"] = dataReader["Estacion_Trabajo"];
+                    Session["Estacion_Trabajo_Descripcion"] = dataReader["Estacion_Trabajo_Descripcion"];
+
+                    Session["ConnectionString"] = connectionString;
                     Response.Redirect("Test.aspx");
                 }
                 else
                 {
+                    ScriptManager.RegisterClientScriptBlock(this, typeof(Page), "test", "alert('Usuario o password invalido');",true);
+
+                    //  ScriptManager.RegisterClientScriptBlock(Page, typeof(string), "", $"toastr.error('There was an error', 'Error')", true);
+
+                    // ScriptManager.RegisterClientScriptBlock(Page, typeof(string), "myScriptName" , $"alert('caca')", true);
                     //   ClientScript
-                 //  ScriptManager.RegisterStartupScript(this, GetType(), "", "toastr.info('Customer Added','Message')", true);
-                  //    Page.ClientScript.RegisterStartupScript(this.GetType(),  "", "toastr.error('There was an error', 'Error')", true);
+                    //  ScriptManager.RegisterStartupScript(this, GetType(), "", "toastr.info('Customer Added','Message')", true);
+                    // Page.ClientScript.RegisterStartupScript(this.GetType(),  "", "toastr.error('There was an error', 'Error')", true);
                 }
 
 

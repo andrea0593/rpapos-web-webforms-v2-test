@@ -12,13 +12,13 @@ namespace rpapos_web_webforms
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            if (Session["db"] == null)
+            if (Session["ConnectionString"] == null)
             {
 
                 Response.Redirect("Login.aspx");
             }
             else {
-                LiteralUserName.Text   = Session["user"].ToString();
+                LiteralUserName.Text   = Session["User"].ToString();
             }
 
         }
