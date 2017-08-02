@@ -64,40 +64,48 @@ namespace rpapos_web_webforms
         public static Image clientLogo( string connectionString , bool originalSize = false)
         {
             Image result = null;
- 
-            if (connectionString.Length > 0)
+
+            try
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                if (connectionString.Length > 0)
                 {
-                    conn.Open();
-                    var sql = string.Format("SELECT Archivo , Tipo FROM tbl_Objeto_Archivo where Objeto_Archivo = 1");
-
-                    var command = new SqlCommand(sql, conn);
-
-
-                    var dataReader = command.ExecuteReader();
-
-
-                    if (dataReader.Read())
+                    using (SqlConnection conn = new SqlConnection(connectionString))
                     {
-                        var tipo = dataReader["Tipo"];
-                        byte[] raw = (byte[])dataReader["Archivo"];
-                        if (raw!=null)
-                        {
+                        conn.Open();
+                        var sql = string.Format("SELECT Archivo , Tipo FROM tbl_Objeto_Archivo where Objeto_Archivo = 1");
 
-                            MemoryStream memstr = new MemoryStream(raw);
-                           result = Image.FromStream(memstr);
-                            if (!originalSize)
+                        var command = new SqlCommand(sql, conn);
+
+
+                        var dataReader = command.ExecuteReader();
+
+
+                        if (dataReader.Read())
+                        {
+                            var tipo = dataReader["Tipo"];
+                            byte[] raw = (byte[])dataReader["Archivo"];
+                            if (raw != null)
                             {
-                                result = DAL.resizeImage(result, 250, 250);
+
+                                MemoryStream memstr = new MemoryStream(raw);
+                                result = Image.FromStream(memstr);
+                                if (!originalSize)
+                                {
+                                    result = DAL.resizeImage(result, 250, 250);
+                                }
                             }
+
+
                         }
 
 
                     }
-
-
                 }
+            }
+            catch(Exception exception)
+            {
+
+
             }
 
             return result;
