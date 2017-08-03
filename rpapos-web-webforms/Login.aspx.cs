@@ -35,14 +35,13 @@ namespace rpapos_web_webforms
                subDomain = url[0];
  
                 connectionString = DAL.connectionStringFromSubdomain(subDomain);
-           
-                var logo = DAL.clientLogo(connectionString);
-
-                var logoB64 = DAL.ImagetoBase(logo);
+            
                 Session["SubDomain"] = subDomain;
-                Session["Logo"] = logoB64;
+                var logo = DAL.ImagetoBase(DAL.clientLogo(connectionString, 250));
+                Session["Logo"] = logo;
+                Session["LogoSmall"] = DAL.ImagetoBase(DAL.clientLogo(connectionString, 48)); 
 
-                imgEmpresa.ImageUrl =logoB64;
+                imgEmpresa.ImageUrl =logo;
             }
 
  
@@ -75,6 +74,8 @@ namespace rpapos_web_webforms
                 if (dataReader.Read())
                 {
                     Session["UserName"] = dataReader["UserName"];
+                    Session["EMail"] = dataReader["EMail"];
+                    Session["Nombres"] = dataReader["Nombres"];
                     Session["Usuario"] = dataReader["Usuario"];
 
                     Session["Estacion_Trabajo"] = dataReader["Estacion_Trabajo"];

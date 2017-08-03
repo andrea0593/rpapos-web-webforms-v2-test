@@ -21,7 +21,7 @@ namespace rpapos_web_webforms
                 Response.Redirect("Login.aspx");
             }
             else {
-                LiteralUserName.Text   = Session["UserName"].ToString();
+
                 var moduloRepo = new MenuModuloRepo(Session["ConnectionString"].ToString());
               modulos = moduloRepo.GetAll(int.Parse(Session["Usuario"].ToString())).ToList();
            

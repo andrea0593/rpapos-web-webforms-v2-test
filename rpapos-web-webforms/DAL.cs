@@ -61,7 +61,7 @@ namespace rpapos_web_webforms
         }
 
 
-        public static Image clientLogo(string connectionString, bool originalSize = false)
+        public static Image clientLogo(string connectionString, int width)
         {
             Image result = null;
 
@@ -89,10 +89,9 @@ namespace rpapos_web_webforms
 
                                 MemoryStream memstr = new MemoryStream(raw);
                                 result = Image.FromStream(memstr);
-                                if (!originalSize)
-                                {
-                                    result = DAL.resizeImage(result, 250, 250);
-                                }
+                                
+                                    result = DAL.resizeImage(result, width, width);
+                              
                             }
 
 
