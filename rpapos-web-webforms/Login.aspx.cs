@@ -74,7 +74,8 @@ namespace rpapos_web_webforms
 
                 if (dataReader.Read())
                 {
-                    Session["User"] = pUserName;
+                    Session["UserName"] = dataReader["UserName"];
+                    Session["Usuario"] = dataReader["Usuario"];
 
                     Session["Estacion_Trabajo"] = dataReader["Estacion_Trabajo"];
                     Session["Estacion_Trabajo_Descripcion"] = dataReader["Estacion_Trabajo_Descripcion"];

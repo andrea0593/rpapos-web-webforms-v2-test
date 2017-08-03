@@ -18,7 +18,8 @@ namespace rpapos_web_webforms
 
         public void cargarDatos()
         {
-            gridViewUnidadMedida.DataSource = Data.Instance.UnidadesDeMedida;
+            UnidadMedidaRepository repo = new UnidadMedidaRepository(Session["ConnectionString"].ToString());
+            gridViewUnidadMedida.DataSource = repo.GetAll();
             gridViewUnidadMedida.DataBind();
             gridViewUnidadMedida.HeaderRow.TableSection = TableRowSection.TableHeader;
         }
