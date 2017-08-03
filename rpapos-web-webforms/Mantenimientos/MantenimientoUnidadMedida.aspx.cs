@@ -82,7 +82,9 @@ namespace rpapos_web_webforms
             }
             else
             {
-                Response.Redirect("/login.aspx");
+
+                ScriptManager.RegisterClientScriptBlock(this, typeof(Page), "test", "alert('Error');", true);
+
             }
              
         }

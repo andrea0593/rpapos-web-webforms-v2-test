@@ -38,94 +38,58 @@ namespace rpapos_web_webforms.Models
 
         public  bool Create(UnidadMedida model )
         {
+            string sql =
 
-            return StorageProcedure(1, 1, model);
+                @"
+declare @vUnidad_Medida int = 0
+
+select @vUnidad_Medidamax(unidad_medida)
+from tbl_unidad_medida
+set @vUnidad_Medida = isnull(@vUnidad_Medida,0) + 1
+
+insert into tbl_unidad_medida
+(unidad_medida)
+values(@vUnidad_Medida)
+
+select @vUnidad_Medida as Unidad_Medida;
+
+
+";
+            return true;
 
         }
 
         public  bool Update(UnidadMedida model )
         {
+            string sql =
 
-            return StorageProcedure(2, 1, model);
+                @"
 
+update tbl_unidad_medida
+set descripcion = '" + model.Descripcion + @"'
+    ,m_fecha_hora = getdate()
+where unidad_medida = " + model.Unidad_Medida + @"
+";
+
+            return true;
         }
 
         public  bool Delete(UnidadMedida model )
         {
-          
 
+            string sql =
 
-            return StorageProcedure(3,1,model);
+                @"
 
+delete from tbl_unidad_medida
+where unidad_medida = " + model.Unidad_Medida + @"
+";
 
+            return true;
         }
 
 
 
-        public  bool StorageProcedure(  int pTAccion , int pTOpcion , UnidadMedida modelo )
-        {
-            var command = new SqlCommand();
-            command.CommandText = "PA_tbl_Unidad_Medida";
-            command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.Add(new SqlParameter("@TAccion", SqlDbType.TinyInt));
-            command.Parameters.Add(new SqlParameter("@TOpcion", SqlDbType.TinyInt));
-
-            command.Parameters.Add(new SqlParameter("@pUnidad_Medida", SqlDbType.TinyInt));
-            command.Parameters.Add(new SqlParameter("@pDescripcion", SqlDbType.VarChar, 100));
-            command.Parameters.Add(new SqlParameter("@pSimbolo", SqlDbType.VarChar, 10));
-            command.Parameters.Add(new SqlParameter("@pFecha_Hora", SqlDbType.DateTime));
-            command.Parameters.Add(new SqlParameter("@pUserName", SqlDbType.VarChar, 30));
-            command.Parameters.Add(new SqlParameter("@pM_Fecha_Hora", SqlDbType.DateTime));
-            command.Parameters.Add(new SqlParameter("@pM_UserName", SqlDbType.VarChar, 30));
-            command.Parameters.Add(new SqlParameter("@pOrden", SqlDbType.TinyInt));
-            command.Parameters.Add(new SqlParameter("@pEstado", SqlDbType.TinyInt));
-
-            command.Parameters["@pUnidad_Medida"].Direction = ParameterDirection.InputOutput;
-
-
-            command.Parameters.Add(new SqlParameter("@vReturnValue", SqlDbType.Int));
-            command.Parameters["@vReturnValue"].Direction = ParameterDirection.ReturnValue;
-
-            command.Parameters["@TAccion"].Value = pTAccion;
-            command.Parameters["@TOpcion"].Value = pTOpcion;
-
-            command.Parameters["@pUnidad_Medida"].Value = modelo.Unidad_Medida;
-            command.Parameters["@pDescripcion"].Value = modelo.Descripcion;
-            command.Parameters["@pSimbolo"].Value = modelo.Simbolo;
-          //  command.Parameters["@pFecha_Hora"].Value = modelo.Fecha_Hora.ToString("yyyy-MM-ddTHH:mm:ss.fff");
-            command.Parameters["@pUserName"].Value = modelo.UserName;
-        //    command.Parameters["@pM_Fecha_Hora"].Value = modelo.M_Fecha_Hora?.ToString("yyyy-MM-ddTHH:mm:ss.fff");
-            command.Parameters["@pM_UserName"].Value = modelo.M_UserName;
-            command.Parameters["@pOrden"].Value = modelo.Orden;
-            command.Parameters["@pEstado"].Value = modelo.Estado;
-
-
-            DataSet data = new DataSet();
-
-
-
-            command.Connection = connection;
-            connection.Open();
-
-            SqlDataAdapter da = new SqlDataAdapter(command);
-           
-            da.Fill(data, "PA_tbl_Unidad_Medida");
-             
-
-            bool r = false;
-
-            if (data.Tables.Count > 0) {
-                if (data.Tables[0].Rows.Count > 0)
-                {
-                    r = true;
-                }
-            }
-
-            connection.Close();
-            return r;
-
-
-        }
 
         public IEnumerable<UnidadMedida> GetAll()
         {
