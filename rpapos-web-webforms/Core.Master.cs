@@ -21,13 +21,19 @@ namespace rpapos_web_webforms
                 Response.Redirect("Login.aspx");
             }
             else {
-
-                var moduloRepo = new MenuModuloRepo(Session["ConnectionString"].ToString());
-              modulos = moduloRepo.GetAll(int.Parse(Session["Usuario"].ToString())).ToList();
-           
+                if (Session["Menu"] == null)
+                {
+                    var moduloRepo = new MenuModuloRepo(Session["ConnectionString"].ToString());
+                    modulos = moduloRepo.GetAll(int.Parse(Session["Usuario"].ToString())).ToList();
+                    Session["Menu"] = modulos;
+                }
+                else {
+                    modulos = (List<MenuModulo>) Session["Menu"];
+                }
 
                 Console.WriteLine();
-                    }
+
+            }
 
         }
 
