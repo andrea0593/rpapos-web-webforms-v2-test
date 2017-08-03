@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
+VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rpapos-web-webforms", "rpapos-web-webforms\rpapos-web-webforms.csproj", "{752C6447-1F26-4E98-BF4A-40DB50D61497}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject1-Login", "UnitTestProject1-Login\UnitTestProject1-Login.csproj", "{D6216D96-1D47-4C29-8FFE-A9A5E96B42EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{752C6447-1F26-4E98-BF4A-40DB50D61497}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{752C6447-1F26-4E98-BF4A-40DB50D61497}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{752C6447-1F26-4E98-BF4A-40DB50D61497}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6216D96-1D47-4C29-8FFE-A9A5E96B42EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6216D96-1D47-4C29-8FFE-A9A5E96B42EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6216D96-1D47-4C29-8FFE-A9A5E96B42EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6216D96-1D47-4C29-8FFE-A9A5E96B42EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
