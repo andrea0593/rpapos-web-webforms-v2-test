@@ -19,6 +19,20 @@ namespace rpapos_web_webforms
         public void cargarDatos()
         {
             UnidadMedidaRepository repo = new UnidadMedidaRepository(Session["ConnectionString"].ToString());
+          
+
+            var x = new UnidadMedida
+            { 
+                Descripcion = "xxx",
+                Simbolo = "xxx",
+                Estado = 1,
+                Fecha_Hora = new DateTime(),
+                M_Fecha_Hora = new DateTime(),
+                M_UserName = "Usuario 1",
+                UserName = "SA",
+                Orden = 1
+            };
+           var m = repo.Create(x);
             gridViewUnidadMedida.DataSource = repo.GetAll();
             gridViewUnidadMedida.DataBind();
             gridViewUnidadMedida.HeaderRow.TableSection = TableRowSection.TableHeader;

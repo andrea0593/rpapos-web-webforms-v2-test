@@ -32,23 +32,7 @@ namespace rpapos_web_webforms.Models
         {
             c = connectionString;
         }
-
-        public override bool Create(MenuFormulario model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override bool Delete(MenuFormulario model)
-        {
-            throw new NotImplementedException();
-        }
-
-       
-
-        public override bool Update(MenuFormulario model)
-        {
-            throw new NotImplementedException();
-        }
+ 
 
 
         public override MenuFormulario PopulateRecord(SqlDataReader reader)
