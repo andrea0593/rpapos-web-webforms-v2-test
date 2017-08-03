@@ -20,7 +20,7 @@ namespace rpapos_web_webforms.Models
         [ScaffoldColumn(false)]
         public string UserName { get; set; }
         [ScaffoldColumn(false)]
-        public DateTime? M_Fecha_Hora { get; set; }
+        public  DateTime? M_Fecha_Hora { get; set; }
         [ScaffoldColumn(false)]
         public string M_UserName { get; set; }
         [ScaffoldColumn(false)]
@@ -36,64 +36,93 @@ namespace rpapos_web_webforms.Models
         {
         }
 
-        public override bool Create(UnidadMedida model)
+        public  bool Create(UnidadMedida model )
         {
-            using (var command = new SqlCommand("delete From tbl_Unidad_Medida where Unidad_Medida = " + model.Unidad_Medida + ";"))
-            {
-                return NonQuery(command);
-            }
+
+            return StorageProcedure(1, 1, model);
 
         }
 
-        public override bool Update(UnidadMedida model)
+        public  bool Update(UnidadMedida model )
         {
-            using (var command = new SqlCommand("delete From tbl_Unidad_Medida where Unidad_Medida = " + model.Unidad_Medida + ";"))
-            {
-                return NonQuery(command);
-            }
+
+            return StorageProcedure(2, 1, model);
 
         }
 
-        public override bool Delete(UnidadMedida model)
+        public  bool Delete(UnidadMedida model )
+        {
+          
+
+
+            return StorageProcedure(3,1,model);
+
+
+        }
+
+
+
+        public  bool StorageProcedure(  int pTAccion , int pTOpcion , UnidadMedida modelo )
         {
             var command = new SqlCommand();
             command.CommandText = "PA_tbl_Unidad_Medida";
-            command.CommandType =  CommandType.StoredProcedure ;
-            command.Parameters.Add(new SqlParameter("@TAccion", SqlDbType.TinyInt ));
-            /*
-        daUnidad_Medida.SelectCommand.Parameters.Add(New SqlParameter("@TOpcion", SqlDbType.TinyInt))
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add(new SqlParameter("@TAccion", SqlDbType.TinyInt));
+            command.Parameters.Add(new SqlParameter("@TOpcion", SqlDbType.TinyInt));
 
-        daUnidad_Medida.SelectCommand.Parameters.Add(New SqlParameter("@pUnidad_Medida", SqlDbType.tinyint))
-        daUnidad_Medida.SelectCommand.Parameters.Add(New SqlParameter("@pDescripcion", SqlDbType.varchar, 100))
-        daUnidad_Medida.SelectCommand.Parameters.Add(New SqlParameter("@pSimbolo", SqlDbType.varchar, 10))
-        daUnidad_Medida.SelectCommand.Parameters.Add(New SqlParameter("@pFecha_Hora", SqlDbType.datetime))
-        daUnidad_Medida.SelectCommand.Parameters.Add(New SqlParameter("@pUserName", SqlDbType.varchar, 30))
-        daUnidad_Medida.SelectCommand.Parameters.Add(New SqlParameter("@pM_Fecha_Hora", SqlDbType.datetime))
-        daUnidad_Medida.SelectCommand.Parameters.Add(New SqlParameter("@pM_UserName", SqlDbType.varchar, 30))
-        daUnidad_Medida.SelectCommand.Parameters.Add(New SqlParameter("@pOrden", SqlDbType.tinyint))
-        daUnidad_Medida.SelectCommand.Parameters.Add(New SqlParameter("@pEstado", SqlDbType.tinyint))
+            command.Parameters.Add(new SqlParameter("@pUnidad_Medida", SqlDbType.TinyInt));
+            command.Parameters.Add(new SqlParameter("@pDescripcion", SqlDbType.VarChar, 100));
+            command.Parameters.Add(new SqlParameter("@pSimbolo", SqlDbType.VarChar, 10));
+            command.Parameters.Add(new SqlParameter("@pFecha_Hora", SqlDbType.DateTime));
+            command.Parameters.Add(new SqlParameter("@pUserName", SqlDbType.VarChar, 30));
+            command.Parameters.Add(new SqlParameter("@pM_Fecha_Hora", SqlDbType.DateTime));
+            command.Parameters.Add(new SqlParameter("@pM_UserName", SqlDbType.VarChar, 30));
+            command.Parameters.Add(new SqlParameter("@pOrden", SqlDbType.TinyInt));
+            command.Parameters.Add(new SqlParameter("@pEstado", SqlDbType.TinyInt));
 
-        daUnidad_Medida.SelectCommand.Parameters("@pUnidad_Medida").Direction = ParameterDirection.InputOutput
+            command.Parameters["@pUnidad_Medida"].Direction = ParameterDirection.InputOutput;
 
-        daUnidad_Medida.SelectCommand.Parameters.Add("@vReturnValue", SqlDbType.Int)
-        daUnidad_Medida.SelectCommand.Parameters("@vReturnValue").Direction = ParameterDirection.ReturnValue
 
-        daUnidad_Medida.SelectCommand.Parameters("@TAccion").Value = pTAccion
-        daUnidad_Medida.SelectCommand.Parameters("@TOpcion").Value = pTOpcion
-        daUnidad_Medida.SelectCommand.Parameters("@pUnidad_Medida").Value = vUnidad_Medida
-        daUnidad_Medida.SelectCommand.Parameters("@pDescripcion").Value = vDescripcion
-        daUnidad_Medida.SelectCommand.Parameters("@pSimbolo").Value = vSimbolo
-        daUnidad_Medida.SelectCommand.Parameters("@pFecha_Hora").Value = vFecha_Hora
-        daUnidad_Medida.SelectCommand.Parameters("@pUserName").Value = vUserName
-        daUnidad_Medida.SelectCommand.Parameters("@pM_Fecha_Hora").Value = vM_Fecha_Hora
-        daUnidad_Medida.SelectCommand.Parameters("@pM_UserName").Value = vM_UserName
-        daUnidad_Medida.SelectCommand.Parameters("@pOrden").Value = vOrden
-        daUnidad_Medida.SelectCommand.Parameters("@pEstado").Value = vEstado
+            command.Parameters.Add(new SqlParameter("@vReturnValue", SqlDbType.Int));
+            command.Parameters["@vReturnValue"].Direction = ParameterDirection.ReturnValue;
 
-        daUnidad_Medida.Fill(dsUnidad_Medida, "PA_tbl_Unidad_Medida")
-             */
+            command.Parameters["@TAccion"].Value = pTAccion;
+            command.Parameters["@TOpcion"].Value = pTOpcion;
 
-            return true;
+            command.Parameters["@pUnidad_Medida"].Value = modelo.Unidad_Medida;
+            command.Parameters["@pDescripcion"].Value = modelo.Descripcion;
+            command.Parameters["@pSimbolo"].Value = modelo.Simbolo;
+          //  command.Parameters["@pFecha_Hora"].Value = modelo.Fecha_Hora.ToString("yyyy-MM-ddTHH:mm:ss.fff");
+            command.Parameters["@pUserName"].Value = modelo.UserName;
+        //    command.Parameters["@pM_Fecha_Hora"].Value = modelo.M_Fecha_Hora?.ToString("yyyy-MM-ddTHH:mm:ss.fff");
+            command.Parameters["@pM_UserName"].Value = modelo.M_UserName;
+            command.Parameters["@pOrden"].Value = modelo.Orden;
+            command.Parameters["@pEstado"].Value = modelo.Estado;
+
+
+            DataSet data = new DataSet();
+
+
+
+            command.Connection = connection;
+            connection.Open();
+
+            SqlDataAdapter da = new SqlDataAdapter(command);
+           
+            da.Fill(data, "PA_tbl_Unidad_Medida");
+             
+
+            bool r = false;
+
+            if (data.Tables.Count > 0) {
+                if (data.Tables[0].Rows.Count > 0)
+                {
+                    r = true;
+                }
+            }
+
+            connection.Close();
+            return r;
 
 
         }
@@ -101,7 +130,7 @@ namespace rpapos_web_webforms.Models
         public IEnumerable<UnidadMedida> GetAll()
         {
 
-            using (var command = new SqlCommand("Select * From tbl_Unidad_Medida;"))
+            using (var command = new SqlCommand("Select * From tbl_Unidad_Medida where estado = 1;"))
             {
                 return GetRecords(command);
             }
@@ -112,15 +141,32 @@ namespace rpapos_web_webforms.Models
 
         public override UnidadMedida PopulateRecord(SqlDataReader reader)
         {
-            return new UnidadMedida
+            var n = new UnidadMedida();
+    
+
+
+            n.Unidad_Medida = Convert.ToInt32(reader["Unidad_Medida"]);
+            n.Descripcion = (string)reader["Descripcion"];
+            n.Simbolo = (string)reader["Simbolo"];
+            n.Fecha_Hora = (DateTime)reader["Fecha_Hora"];
+            n.UserName = (string)reader["UserName"];
+            if (reader["M_Fecha_Hora"] is DateTime)
             {
-                Unidad_Medida = int.Parse(reader["Unidad_Medida"].ToString()),
-                Descripcion = reader["Descripcion"].ToString(),
-                Simbolo = reader["Simbolo"].ToString()
-            };
+                n.M_Fecha_Hora = (DateTime)reader["M_Fecha_Hora"];
+            }
+            if (reader["M_UserName"] is string)
+            {
+                n.M_UserName = (string)reader["M_UserName"];
+            }
+             
+            n.Orden = Convert.ToInt32(reader["Orden"]);
+            n.Estado = Convert.ToInt32(reader["Estado"]);
+         
+            return n;
         }
 
-      
+ 
+
     }
 }
 

@@ -10,15 +10,29 @@ namespace rpapos_web_webforms
         protected void Page_Load(object sender, EventArgs e)
         {
             gridViewUnidadMedida.EnableDynamicData(typeof(UnidadMedida));
-            CargarDatos();
+            cargarDatos();
 
           //  ScriptManager.RegisterStartupScript(this, typeof(Page), "test", "$('#gridViewUnidadMedida').DataTable(); ", true);
 
         }
 
-        public void CargarDatos()
+        public void cargarDatos()
         {
-            var repo = new UnidadMedidaRepository(Session["ConnectionString"].ToString());
+            UnidadMedidaRepository repo = new UnidadMedidaRepository(Session["ConnectionString"].ToString());
+          
+
+            var x = new UnidadMedida
+            { 
+                Descripcion = "xxx",
+                Simbolo = "xxx",
+                Estado = 1,
+                Fecha_Hora = new DateTime(),
+                M_Fecha_Hora = new DateTime(),
+                M_UserName = "Usuario 1",
+                UserName = "SA",
+                Orden = 1
+            };
+           var m = repo.Create(x);
             gridViewUnidadMedida.DataSource = repo.GetAll();
             gridViewUnidadMedida.DataBind();
             gridViewUnidadMedida.HeaderRow.TableSection = TableRowSection.TableHeader;
@@ -26,26 +40,17 @@ namespace rpapos_web_webforms
 
         protected void buttonCreate_Click(object sender, EventArgs e)
         {
-            var temp = new UnidadMedida
+            UnidadMedida newUM = new UnidadMedida
             {
                 Descripcion = textboxDescripcion.Text,
-                Simbolo = textboxSimbolo.Text,
-                Estado = 1,
-                Fecha_Hora = DateTime.UtcNow,
-                M_Fecha_Hora = null,
-                UserName = Session["Usuario"].ToString(),
-                M_UserName = null,
-                Orden = 0 //TODO: get last order
+                Simbolo = textboxSimbolo.Text
             };
-
-            var repo = new UnidadMedidaRepository(Session["ConnectionString"].ToString());
-            repo.Create(temp);
-
-            Limpiar();
-            CargarDatos();
+            Data.Instance.UnidadesDeMedida.Add(newUM);
+            limpiar();
+            cargarDatos();
         }
 
-        public void Limpiar() {
+        public void limpiar() {
             textboxSimbolo.Text = string.Empty;
             textboxDescripcion.Text = string.Empty;
         }

@@ -144,28 +144,26 @@ namespace rpapos_web_webforms
 
     public abstract class DALRepository<T> where T : class
     {
-        private static SqlConnection _connection;
+        public SqlConnection connection;
        
         public DALRepository(string connectionString)
         {
            
-            _connection = new SqlConnection(connectionString);
+            connection = new SqlConnection(connectionString);
         }
 
         public abstract T PopulateRecord(SqlDataReader reader);
 
 
 
-        public abstract bool Create(T model);
-        public abstract bool Update(T model);
-        public abstract bool Delete(T model);
+
 
 
         protected T GetRecord(SqlCommand command)
         {
             T record = null;
-            command.Connection = _connection;
-            _connection.Open();
+            command.Connection = connection;
+            connection.Open();
             try
             {
                 var reader = command.ExecuteReader();
@@ -185,7 +183,7 @@ namespace rpapos_web_webforms
             }
             finally
             {
-                _connection.Close();
+                connection.Close();
             }
             return record;
         }
@@ -195,8 +193,8 @@ namespace rpapos_web_webforms
         protected bool NonQuery(SqlCommand command)
         {
            var record = 0;
-            command.Connection = _connection;
-            _connection.Open();
+            command.Connection = connection;
+            connection.Open();
             try
             {
                 record = command.ExecuteNonQuery();
@@ -205,7 +203,7 @@ namespace rpapos_web_webforms
             }
             finally
             {
-                _connection.Close();
+                connection.Close();
             }
             return record>0;
         }
@@ -214,8 +212,8 @@ namespace rpapos_web_webforms
         protected IEnumerable<T> GetRecords(SqlCommand command)
         {
             var list = new List<T>();
-            command.Connection = _connection;
-            _connection.Open();
+            command.Connection = connection;
+            connection.Open();
             try
             {
                 var reader = command.ExecuteReader();
@@ -226,13 +224,13 @@ namespace rpapos_web_webforms
                 }
                 finally
                 {
-                    // Always call Close when done reading.
+
                     reader.Close();
                 }
             }
             finally
             {
-                _connection.Close();
+                connection.Close();
             }
             return list;
         }
