@@ -2,3 +2,7 @@
     position:relative;
     float:right;
 }
+
+div.footer {
+    z-index:2001 !important;
+}

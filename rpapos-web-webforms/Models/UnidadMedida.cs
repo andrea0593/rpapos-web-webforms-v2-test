@@ -20,7 +20,7 @@ namespace rpapos_web_webforms.Models
         [ScaffoldColumn(false)]
         public string UserName { get; set; }
         [ScaffoldColumn(false)]
-        public DateTime M_Fecha_Hora { get; set; }
+        public DateTime? M_Fecha_Hora { get; set; }
         [ScaffoldColumn(false)]
         public string M_UserName { get; set; }
         [ScaffoldColumn(false)]

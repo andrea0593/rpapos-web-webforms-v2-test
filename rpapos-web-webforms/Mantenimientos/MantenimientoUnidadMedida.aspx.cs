@@ -10,15 +10,15 @@ namespace rpapos_web_webforms
         protected void Page_Load(object sender, EventArgs e)
         {
             gridViewUnidadMedida.EnableDynamicData(typeof(UnidadMedida));
-            cargarDatos();
+            CargarDatos();
 
           //  ScriptManager.RegisterStartupScript(this, typeof(Page), "test", "$('#gridViewUnidadMedida').DataTable(); ", true);
 
         }
 
-        public void cargarDatos()
+        public void CargarDatos()
         {
-            UnidadMedidaRepository repo = new UnidadMedidaRepository(Session["ConnectionString"].ToString());
+            var repo = new UnidadMedidaRepository(Session["ConnectionString"].ToString());
             gridViewUnidadMedida.DataSource = repo.GetAll();
             gridViewUnidadMedida.DataBind();
             gridViewUnidadMedida.HeaderRow.TableSection = TableRowSection.TableHeader;
@@ -26,17 +26,26 @@ namespace rpapos_web_webforms
 
         protected void buttonCreate_Click(object sender, EventArgs e)
         {
-            UnidadMedida newUM = new UnidadMedida
+            var temp = new UnidadMedida
             {
                 Descripcion = textboxDescripcion.Text,
-                Simbolo = textboxSimbolo.Text
+                Simbolo = textboxSimbolo.Text,
+                Estado = 1,
+                Fecha_Hora = DateTime.UtcNow,
+                M_Fecha_Hora = null,
+                UserName = Session["Usuario"].ToString(),
+                M_UserName = null,
+                Orden = 0 //TODO: get last order
             };
-            Data.Instance.UnidadesDeMedida.Add(newUM);
-            limpiar();
-            cargarDatos();
+
+            var repo = new UnidadMedidaRepository(Session["ConnectionString"].ToString());
+            repo.Create(temp);
+
+            Limpiar();
+            CargarDatos();
         }
 
-        public void limpiar() {
+        public void Limpiar() {
             textboxSimbolo.Text = string.Empty;
             textboxDescripcion.Text = string.Empty;
         }
