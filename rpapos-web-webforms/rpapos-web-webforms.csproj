@@ -69,6 +69,7 @@
     <Content Include="css\animate.css" />
     <Content Include="css\bootstrap.css" />
     <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\customStyle.css" />
     <Content Include="css\patterns\1.png" />
     <Content Include="css\patterns\2.png" />
     <Content Include="css\patterns\3.png" />
@@ -1501,6 +1502,7 @@
       <DependentUpon>Core.Master</DependentUpon>
     </Compile>
     <Compile Include="DAL.cs" />
+    <Compile Include="Data.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
