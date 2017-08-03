@@ -1,58 +1,90 @@
 ﻿using rpapos_web_webforms.Models;
 using System;
+using System.Collections.Generic;
 using System.Web.UI;
+using System.Linq;
 using System.Web.UI.WebControls;
 
 namespace rpapos_web_webforms
 {
     public partial class MantenimientoUnidadMedida : Page
     {
+        UnidadMedidaRepository repo;
+        public List<UnidadMedida> data = new List<UnidadMedida>();
+
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            gridViewUnidadMedida.EnableDynamicData(typeof(UnidadMedida));
-            cargarDatos();
-
-          //  ScriptManager.RegisterStartupScript(this, typeof(Page), "test", "$('#gridViewUnidadMedida').DataTable(); ", true);
-
+            repo = new UnidadMedidaRepository(Session["ConnectionString"].ToString());
+            CargarDatos();
         }
 
-        public void cargarDatos()
+        public void CargarDatos()
         {
-            UnidadMedidaRepository repo = new UnidadMedidaRepository(Session["ConnectionString"].ToString());
-          
-
-            var x = new UnidadMedida
-            { 
-                Descripcion = "xxx",
-                Simbolo = "xxx",
-                Estado = 1,
-                Fecha_Hora = new DateTime(),
-                M_Fecha_Hora = new DateTime(),
-                M_UserName = "Usuario 1",
-                UserName = "SA",
-                Orden = 1
-            };
-           var m = repo.Create(x);
-            gridViewUnidadMedida.DataSource = repo.GetAll();
-            gridViewUnidadMedida.DataBind();
-            gridViewUnidadMedida.HeaderRow.TableSection = TableRowSection.TableHeader;
+            data = repo.GetAll().ToList();
         }
 
         protected void buttonCreate_Click(object sender, EventArgs e)
         {
-            UnidadMedida newUM = new UnidadMedida
+            var um = new UnidadMedida
             {
                 Descripcion = textboxDescripcion.Text,
-                Simbolo = textboxSimbolo.Text
+                Simbolo = textboxSimbolo.Text,
+                Estado = 1,
+                Fecha_Hora = DateTime.UtcNow,
+                M_Fecha_Hora = null,
+                M_UserName = null,
+                Orden = 1,
+                UserName = Session["Usuario"].ToString()
             };
-            Data.Instance.UnidadesDeMedida.Add(newUM);
-            limpiar();
-            cargarDatos();
+
+            repo.Create(um);
+            Limpiar();
+            CargarDatos();
         }
 
-        public void limpiar() {
+        public void Limpiar() {
             textboxSimbolo.Text = string.Empty;
             textboxDescripcion.Text = string.Empty;
+            textboxActualizarDescripcion.Text = string.Empty;
+            textboxActualizarId.Text = string.Empty;
+            textboxActualizarSimbolo.Text = string.Empty;
+            textboxEliminarId.Text = string.Empty;
+        }
+
+        protected void buttonUpdate_Click(object sender, EventArgs e)
+        {
+            var unidadMedida = new UnidadMedida
+            {
+                Unidad_Medida = int.Parse(textboxActualizarId.Text),
+                Descripcion = textboxActualizarDescripcion.Text,
+                Simbolo = textboxActualizarSimbolo.Text,
+                M_Fecha_Hora = DateTime.UtcNow,
+                M_UserName = Session["Usuario"].ToString()
+            };
+
+            repo.Update(unidadMedida);
+            Limpiar();
+            CargarDatos();
+        }
+
+        protected void buttonDelete_Click(object sender, EventArgs e)
+        {
+            var id = int.Parse(textboxEliminarId.Text);
+            var unidadAEliminar = data.Find(x => x.Unidad_Medida == id);
+            unidadAEliminar.M_Fecha_Hora = DateTime.UtcNow;
+            unidadAEliminar.M_UserName = Session["Usuario"].ToString();
+
+            if (repo.Delete(unidadAEliminar))
+            {
+                Limpiar();
+                CargarDatos();
+            }
+            else
+            {
+                Response.Redirect("/login.aspx");
+            }
+             
         }
     }
 }

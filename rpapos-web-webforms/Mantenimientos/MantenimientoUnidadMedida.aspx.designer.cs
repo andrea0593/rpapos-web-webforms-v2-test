@@ -13,15 +13,6 @@ namespace rpapos_web_webforms {
     public partial class MantenimientoUnidadMedida {
         
         /// <summary>
-        /// gridViewUnidadMedida control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gridViewUnidadMedida;
-        
-        /// <summary>
         /// lblModalTitle control.
         /// </summary>
         /// <remarks>
@@ -67,6 +58,15 @@ namespace rpapos_web_webforms {
         protected global::System.Web.UI.WebControls.Label Label3;
         
         /// <summary>
+        /// textboxActualizarId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox textboxActualizarId;
+        
+        /// <summary>
         /// textboxActualizarDescripcion control.
         /// </summary>
         /// <remarks>
@@ -85,13 +85,13 @@ namespace rpapos_web_webforms {
         protected global::System.Web.UI.WebControls.TextBox textboxActualizarSimbolo;
         
         /// <summary>
-        /// button1 control.
+        /// buttonUpdate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button button1;
+        protected global::System.Web.UI.WebControls.Button buttonUpdate;
         
         /// <summary>
         /// Label1 control.
@@ -103,6 +103,15 @@ namespace rpapos_web_webforms {
         protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
+        /// textboxEliminarId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox textboxEliminarId;
+        
+        /// <summary>
         /// Label2 control.
         /// </summary>
         /// <remarks>
@@ -112,12 +121,12 @@ namespace rpapos_web_webforms {
         protected global::System.Web.UI.WebControls.Label Label2;
         
         /// <summary>
-        /// deleteOk control.
+        /// buttonDelete control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button deleteOk;
+        protected global::System.Web.UI.WebControls.Button buttonDelete;
     }
 }
