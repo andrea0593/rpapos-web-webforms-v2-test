@@ -71,7 +71,7 @@ namespace rpapos_web_webforms.Models
 FROM tbl_Usuario_Rol AS T1
 	INNER JOIN RPA_Catalogo.dbo.tbl_Aplicacion AS T2
 		ON T1.Aplicacion = T2.Aplicacion
-WHERE T1.Usuario = "+Usuario+";"
+WHERE T1.Usuario = "+Usuario+" ORDER BY T1.Aplicacion;"
                 ))
             {
                 return GetRecords(command);

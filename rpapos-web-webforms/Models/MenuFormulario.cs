@@ -93,9 +93,38 @@ SELECT T1.Rol_Formulario  , T1.Aplicacion , T1.Rol
 	,ISNULL(T2.URL,0) AS Formulario_URL
 FROM RPA_Catalogo.dbo.tbl_Rol_Formulario AS T1
 	LEFT OUTER JOIN RPA_Catalogo.dbo.tbl_Formulario AS T2
-		ON T1.Formulario = T2.Formulario
+		ON T1.Formulario = T2.Formulario AND T2.URL IS NOT NULL
 WHERE T1.Aplicacion = " + Aplicacion+
-" AND T1.Rol = "+Rol+" AND ISNULL(T1.Rol_Formulario_Padre,0) = "+Rol_Formulario_Padre+";"
+" AND T1.Rol = "+Rol+" AND ISNULL(T1.Rol_Formulario_Padre,0) = "+Rol_Formulario_Padre+ 
+@" ORDER BY CASE 
+
+        WHEN T1.Formulario IS NULL
+
+        THEN 0
+
+        ELSE 1
+
+        END
+    , CASE T2.Nombre
+
+        WHEN 'Mantenimiento' THEN 1
+
+        WHEN 'Proceso' THEN 2
+
+        WHEN 'Reporte' THEN 3
+
+        WHEN 'Configuración' THEN 4
+
+        WHEN 'Catalogos' THEN 5
+
+        WHEN 'Tipos' THEN 6
+
+        WHEN 'Cuentas' THEN 7
+
+        ELSE 8
+
+        END
+    , ISNULL(T2.Nombre, ''); "
                 ))
             {
                 return GetRecords(command);
