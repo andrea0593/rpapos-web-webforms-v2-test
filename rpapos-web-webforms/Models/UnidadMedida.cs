@@ -1,4 +1,5 @@
-﻿using System;
+﻿using rpapos_web_webforms.Models.Repo;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -20,7 +21,7 @@ namespace rpapos_web_webforms.Models
     }
 
 
-    public class UnidadMedidaRepository : DALRepository<UnidadMedida>
+    public class UnidadMedidaRepository : RepoBase<UnidadMedida>
     {
         public UnidadMedidaRepository(string connectionString) : base(connectionString)
         {
