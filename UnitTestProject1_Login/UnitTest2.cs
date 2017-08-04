@@ -11,18 +11,21 @@ namespace UnitTestProject1_Login
     public class UnitTest2
     {
 
-        private string baseURL = "http://localhost:62008/Login.aspx";
-        private RemoteWebDriver driver = new ChromeDriver();
+        private static string baseURL;
+        private static RemoteWebDriver driver;
         public TestContext TestContext { get; set; }
 
-        [TestMethod]
-        [TestCategory("Selenium")]
-        [Priority(1)]
-        [Owner("Chrome")]
 
-        public void TestMethod2()
-        {
-       
+        [ClassInitialize()]
+        public static void MyClassInitialize(TestContext context) {
+           driver = new ChromeDriver();
+           baseURL = "http://localhost:62008/Login.aspx";
+        }
+
+        [TestMethod]
+
+        public void Login() {
+
             driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(20));
             driver.Manage().Timeouts().SetPageLoadTimeout(TimeSpan.FromSeconds(15));
             driver.Navigate().GoToUrl(baseURL);
@@ -42,24 +45,27 @@ namespace UnitTestProject1_Login
             login_button.Click();
 
             driver.Manage().Timeouts().SetPageLoadTimeout(TimeSpan.FromSeconds(15));
-            Assert.AreEqual(driver.Url, "http://localhost:62008/Test.aspx");
-
-
-
+            Assert.AreEqual(driver.Url, "http://localhost:62008/Test.aspx", "Test failed, it should navigate to the Test.aspx page after a valid login");
 
         }
 
-        [TestCleanup()]
-        public void MyTestCleanup()
-        {
-            driver.Quit();
+        [TestMethod]
+        public void NavigateToUnidaDeMedida() {
+            Assert.AreEqual(driver.Url, "http://localhost:62008/Test.aspx", "Test failed ");
+
         }
+
 
         [TestInitialize()]
-        public void MyTestInitialize()
-        {
+        public void MyTestInitialize() {
 
         }
+
+        [ClassCleanup()]
+        public static void MyClassCleanup() {
+            driver.Quit();
+        }
+       
 
 
     }
