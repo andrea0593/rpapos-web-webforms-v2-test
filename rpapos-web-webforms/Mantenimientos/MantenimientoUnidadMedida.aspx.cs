@@ -35,7 +35,7 @@ namespace rpapos_web_webforms
                 M_Fecha_Hora = null,
                 M_UserName = null,
                 Orden = 1,
-                UserName = Session["Usuario"].ToString()
+                UserName = Session["UserName"].ToString()
             };
 
             repo.Create(um);
@@ -59,8 +59,7 @@ namespace rpapos_web_webforms
                 Unidad_Medida = int.Parse(textboxActualizarId.Text),
                 Descripcion = textboxActualizarDescripcion.Text,
                 Simbolo = textboxActualizarSimbolo.Text,
-                M_Fecha_Hora = DateTime.UtcNow,
-                M_UserName = Session["Usuario"].ToString()
+                M_UserName = Session["UserName"].ToString()
             };
 
             repo.Update(unidadMedida);
@@ -72,8 +71,7 @@ namespace rpapos_web_webforms
         {
             var id = int.Parse(textboxEliminarId.Text);
             var unidadAEliminar = data.Find(x => x.Unidad_Medida == id);
-            unidadAEliminar.M_Fecha_Hora = DateTime.UtcNow;
-            unidadAEliminar.M_UserName = Session["Usuario"].ToString();
+            unidadAEliminar.M_UserName = Session["UserName"].ToString();
 
             if (repo.Delete(unidadAEliminar))
             {
