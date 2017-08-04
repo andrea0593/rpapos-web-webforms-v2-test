@@ -26,23 +26,7 @@ namespace rpapos_web_webforms.Models
             c = connectionString;
         }
 
-        public override bool Create(MenuModulo model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override bool Delete(MenuModulo model)
-        {
-            throw new NotImplementedException();
-        }
-
-     
-
-        public override bool Update(MenuModulo model)
-        {
-            throw new NotImplementedException();
-        }
-
+ 
         public override MenuModulo PopulateRecord(SqlDataReader reader)
         {
             var result =  new MenuModulo

@@ -20,7 +20,7 @@ namespace rpapos_web_webforms.Models
         [ScaffoldColumn(false)]
         public string UserName { get; set; }
         [ScaffoldColumn(false)]
-        public DateTime M_Fecha_Hora { get; set; }
+        public  DateTime? M_Fecha_Hora { get; set; }
         [ScaffoldColumn(false)]
         public string M_UserName { get; set; }
         [ScaffoldColumn(false)]
@@ -36,72 +36,65 @@ namespace rpapos_web_webforms.Models
         {
         }
 
-        public override bool Create(UnidadMedida model)
+        public  bool Create(UnidadMedida model )
         {
-            using (var command = new SqlCommand("delete From tbl_Unidad_Medida where Unidad_Medida = " + model.Unidad_Medida + ";"))
-            {
-                return NonQuery(command);
-            }
+            string sql =
 
-        }
+                @"
+declare @vUnidad_Medida int = 0
 
-        public override bool Update(UnidadMedida model)
-        {
-            using (var command = new SqlCommand("delete From tbl_Unidad_Medida where Unidad_Medida = " + model.Unidad_Medida + ";"))
-            {
-                return NonQuery(command);
-            }
+select @vUnidad_Medidamax(unidad_medida)
+from tbl_unidad_medida
+set @vUnidad_Medida = isnull(@vUnidad_Medida,0) + 1
 
-        }
+insert into tbl_unidad_medida
+(unidad_medida)
+values(@vUnidad_Medida)
 
-        public override bool Delete(UnidadMedida model)
-        {
-            var command = new SqlCommand();
-            command.CommandText = "PA_tbl_Unidad_Medida";
-            command.CommandType =  CommandType.StoredProcedure ;
-            command.Parameters.Add(new SqlParameter("@TAccion", SqlDbType.TinyInt ));
-            /*
-        daUnidad_Medida.SelectCommand.Parameters.Add(New SqlParameter("@TOpcion", SqlDbType.TinyInt))
+select @vUnidad_Medida as Unidad_Medida;
 
-        daUnidad_Medida.SelectCommand.Parameters.Add(New SqlParameter("@pUnidad_Medida", SqlDbType.tinyint))
-        daUnidad_Medida.SelectCommand.Parameters.Add(New SqlParameter("@pDescripcion", SqlDbType.varchar, 100))
-        daUnidad_Medida.SelectCommand.Parameters.Add(New SqlParameter("@pSimbolo", SqlDbType.varchar, 10))
-        daUnidad_Medida.SelectCommand.Parameters.Add(New SqlParameter("@pFecha_Hora", SqlDbType.datetime))
-        daUnidad_Medida.SelectCommand.Parameters.Add(New SqlParameter("@pUserName", SqlDbType.varchar, 30))
-        daUnidad_Medida.SelectCommand.Parameters.Add(New SqlParameter("@pM_Fecha_Hora", SqlDbType.datetime))
-        daUnidad_Medida.SelectCommand.Parameters.Add(New SqlParameter("@pM_UserName", SqlDbType.varchar, 30))
-        daUnidad_Medida.SelectCommand.Parameters.Add(New SqlParameter("@pOrden", SqlDbType.tinyint))
-        daUnidad_Medida.SelectCommand.Parameters.Add(New SqlParameter("@pEstado", SqlDbType.tinyint))
 
-        daUnidad_Medida.SelectCommand.Parameters("@pUnidad_Medida").Direction = ParameterDirection.InputOutput
-
-        daUnidad_Medida.SelectCommand.Parameters.Add("@vReturnValue", SqlDbType.Int)
-        daUnidad_Medida.SelectCommand.Parameters("@vReturnValue").Direction = ParameterDirection.ReturnValue
-
-        daUnidad_Medida.SelectCommand.Parameters("@TAccion").Value = pTAccion
-        daUnidad_Medida.SelectCommand.Parameters("@TOpcion").Value = pTOpcion
-        daUnidad_Medida.SelectCommand.Parameters("@pUnidad_Medida").Value = vUnidad_Medida
-        daUnidad_Medida.SelectCommand.Parameters("@pDescripcion").Value = vDescripcion
-        daUnidad_Medida.SelectCommand.Parameters("@pSimbolo").Value = vSimbolo
-        daUnidad_Medida.SelectCommand.Parameters("@pFecha_Hora").Value = vFecha_Hora
-        daUnidad_Medida.SelectCommand.Parameters("@pUserName").Value = vUserName
-        daUnidad_Medida.SelectCommand.Parameters("@pM_Fecha_Hora").Value = vM_Fecha_Hora
-        daUnidad_Medida.SelectCommand.Parameters("@pM_UserName").Value = vM_UserName
-        daUnidad_Medida.SelectCommand.Parameters("@pOrden").Value = vOrden
-        daUnidad_Medida.SelectCommand.Parameters("@pEstado").Value = vEstado
-
-        daUnidad_Medida.Fill(dsUnidad_Medida, "PA_tbl_Unidad_Medida")
-             */
-
+";
             return true;
 
-
         }
+
+        public  bool Update(UnidadMedida model )
+        {
+            string sql =
+
+                @"
+
+update tbl_unidad_medida
+set descripcion = '" + model.Descripcion + @"'
+    ,m_fecha_hora = getdate()
+where unidad_medida = " + model.Unidad_Medida + @"
+";
+
+            return true;
+        }
+
+        public  bool Delete(UnidadMedida model )
+        {
+
+            string sql =
+
+                @"
+
+delete from tbl_unidad_medida
+where unidad_medida = " + model.Unidad_Medida + @"
+";
+
+            return true;
+        }
+
+
+
 
         public IEnumerable<UnidadMedida> GetAll()
         {
 
-            using (var command = new SqlCommand("Select * From tbl_Unidad_Medida;"))
+            using (var command = new SqlCommand("Select * From tbl_Unidad_Medida where estado = 1;"))
             {
                 return GetRecords(command);
             }
@@ -112,15 +105,32 @@ namespace rpapos_web_webforms.Models
 
         public override UnidadMedida PopulateRecord(SqlDataReader reader)
         {
-            return new UnidadMedida
+            var n = new UnidadMedida();
+    
+
+
+            n.Unidad_Medida = Convert.ToInt32(reader["Unidad_Medida"]);
+            n.Descripcion = (string)reader["Descripcion"];
+            n.Simbolo = (string)reader["Simbolo"];
+            n.Fecha_Hora = (DateTime)reader["Fecha_Hora"];
+            n.UserName = (string)reader["UserName"];
+            if (reader["M_Fecha_Hora"] is DateTime)
             {
-                Unidad_Medida = int.Parse(reader["Unidad_Medida"].ToString()),
-                Descripcion = reader["Descripcion"].ToString(),
-                Simbolo = reader["Simbolo"].ToString()
-            };
+                n.M_Fecha_Hora = (DateTime)reader["M_Fecha_Hora"];
+            }
+            if (reader["M_UserName"] is string)
+            {
+                n.M_UserName = (string)reader["M_UserName"];
+            }
+             
+            n.Orden = Convert.ToInt32(reader["Orden"]);
+            n.Estado = Convert.ToInt32(reader["Estado"]);
+         
+            return n;
         }
 
-      
+ 
+
     }
 }
 
