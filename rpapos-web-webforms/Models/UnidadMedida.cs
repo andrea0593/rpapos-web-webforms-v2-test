@@ -36,7 +36,7 @@ namespace rpapos_web_webforms.Models
 
         public bool Create(UnidadMedida model)
         {
-            var sql = string.Format(@"
+            var query = string.Format(@"
 declare @vUnidad_Medida int = 0
 
 select @vUnidad_Medida = max(unidad_medida)
@@ -50,7 +50,7 @@ values(@vUnidad_Medida, '{0}', '{1}', getdate(), '{2}', {3}, {4})
 select @vUnidad_Medida as Unidad_Medida;
 ", model.Descripcion, model.Simbolo, model.UserName, model.Orden, model.Estado);
 
-            using (var command = new SqlCommand(sql))
+            using (var command = new SqlCommand(query))
             {
                 return NonQuery(command);
             }
@@ -59,7 +59,7 @@ select @vUnidad_Medida as Unidad_Medida;
 
         public bool Update(UnidadMedida model)
         {
-            string sql = string.Format(@"
+            string query = string.Format(@"
 update tbl_unidad_medida
 set descripcion = '{0}',
     simbolo = '{1}',
@@ -68,7 +68,7 @@ set descripcion = '{0}',
 where unidad_medida = {3}
 ", model.Descripcion, model.Simbolo, model.M_UserName, model.Unidad_Medida);
 
-            using (var command = new SqlCommand(sql))
+            using (var command = new SqlCommand(query))
             {
                 return NonQuery(command);
             }
@@ -77,7 +77,7 @@ where unidad_medida = {3}
         public bool Delete(UnidadMedida model)
         {
 
-            string sql = string.Format(@"
+            string query = string.Format(@"
 update tbl_unidad_medida
 set Estado = 2,
     m_username = '{1}',
@@ -85,7 +85,7 @@ set Estado = 2,
 where unidad_medida = {0}
 ", model.Unidad_Medida, model.M_UserName);
 
-            using (var command = new SqlCommand(sql))
+            using (var command = new SqlCommand(query))
             {
                 return NonQuery(command);
             }
