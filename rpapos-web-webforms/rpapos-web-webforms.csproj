@@ -1520,6 +1520,7 @@
     <Compile Include="Mantenimientos\MantenimientoUnidadMedida.aspx.designer.cs">
       <DependentUpon>MantenimientoUnidadMedida.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Models\ClaseProducto.cs" />
     <Compile Include="Models\MenuFormulario.cs" />
     <Compile Include="Models\MenuModulo.cs" />
     <Compile Include="Models\UnidadMedida.cs" />
