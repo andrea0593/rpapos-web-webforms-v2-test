@@ -5,7 +5,7 @@ using System.Web.UI;
 using System.Linq;
 using System.Web.UI.WebControls;
 
-namespace rpapos_web_webforms
+namespace rpapos_web_webforms.Mantenimientos
 {
     public partial class MantenimientoUnidadMedida : Page
     {

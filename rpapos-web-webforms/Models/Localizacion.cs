@@ -19,7 +19,7 @@ namespace rpapos_web_webforms.Models
         {
         }
 
-        public Localizacion PopulateForeignRecord(SqlDataReader reader)
+        public override Localizacion PopulateForeignRecord(SqlDataReader reader)
         {
             return new Localizacion
             {

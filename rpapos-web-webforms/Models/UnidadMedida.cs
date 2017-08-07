@@ -109,6 +109,11 @@ where unidad_medida = {0}
 
             return modelo;
         }
+
+        public override UnidadMedida PopulateForeignRecord(SqlDataReader reader)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

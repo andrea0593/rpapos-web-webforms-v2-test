@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace rpapos_web_webforms {
+namespace rpapos_web_webforms.Mantenimientos {
     
     
     public partial class MantenimientoUnidadMedida {

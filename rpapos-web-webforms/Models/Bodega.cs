@@ -151,5 +151,10 @@ on b.Localizacion = l.Localizacion;";
 
             return model;
         }
+
+        public override Bodega PopulateForeignRecord(SqlDataReader reader)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

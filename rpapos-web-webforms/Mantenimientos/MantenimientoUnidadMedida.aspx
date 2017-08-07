@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Core.Master" AutoEventWireup="true" CodeBehind="MantenimientoUnidadMedida.aspx.cs" Inherits="rpapos_web_webforms.MantenimientoUnidadMedida" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Core.Master" AutoEventWireup="true" CodeBehind="MantenimientoUnidadMedida.aspx.cs" Inherits="rpapos_web_webforms.Mantenimientos.MantenimientoUnidadMedida" %>
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">

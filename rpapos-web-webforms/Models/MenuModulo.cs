@@ -63,7 +63,10 @@ WHERE T1.Usuario = "+Usuario+" ORDER BY T1.Aplicacion;"
             }
         }
 
-
+        public override MenuModulo PopulateForeignRecord(SqlDataReader reader)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }

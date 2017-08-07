@@ -28,6 +28,11 @@ namespace rpapos_web_webforms.Models
             }
         }
 
+        public override TipoBodega PopulateForeignRecord(SqlDataReader reader)
+        {
+            throw new NotImplementedException();
+        }
+
         public override TipoBodega PopulateRecord(SqlDataReader reader)
         {
             return new TipoBodega
