@@ -13,6 +13,7 @@ namespace rpapos_web_webforms
             var settings = new FriendlyUrlSettings();
             settings.AutoRedirectMode = RedirectMode.Permanent;
             routes.EnableFriendlyUrls(settings);
+            routes.MapPageRoute("default", "", "~/Home.aspx"); 
             routes.MapPageRoute("404", "{*url}", "~/StaticPages/404.aspx");
         }
     }

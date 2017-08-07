@@ -213,7 +213,6 @@
     <Content Include="font-awesome\css\font-awesome.min.css" />
     <Content Include="font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="form_basic.html" />
     <Content Include="Home.aspx" />
     <Content Include="img\a1.jpg" />
     <Content Include="img\a2.jpg" />
