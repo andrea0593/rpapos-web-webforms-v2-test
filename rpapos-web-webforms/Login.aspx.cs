@@ -27,7 +27,7 @@ namespace rpapos_web_webforms
         protected void Page_Load(object sender, EventArgs e)
         {
 
-
+            Response.Cache.SetNoStore();
             var domain = Login.getDomain();
             var url = domain.Split('.');
 

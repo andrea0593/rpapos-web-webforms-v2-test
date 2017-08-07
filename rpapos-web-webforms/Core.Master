@@ -35,7 +35,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>RPA | Pos</title>
+    <title>RPApos</title>
+
+
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -43,8 +45,6 @@
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link href="css/customStyle.css" rel="stylesheet">
-
-
     <link href="css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
 
 
@@ -68,6 +68,10 @@
     <!-- iCheck -->
     <script src="/js/plugins/iCheck/icheck.min.js"></script>
     <script>
+        function logout() {
+            window.location.replace("logout");
+        };
+
         $(document).ready(function () {
             $('.i-checks').iCheck({
                 checkboxClass: 'icheckbox_square-green',
@@ -91,8 +95,8 @@
 
 
 
-
                 <ul class="nav metismenu" id="side-menu">
+
                     <li class="nav-header">
                         <div class="dropdown profile-element">
                             <span>
@@ -118,14 +122,27 @@
                                 <li><a href="contacts.html">Contacts</a></li>
                                 <li><a href="mailbox.html">Mailbox</a></li>
                                 <li class="divider"></li>
-                                <li><a href="login.html">Logout</a></li>
+                                <li>
+                                       
+
+                                    <a href="javascript:logout();"> Logout</a>
+
+<%--                <form   role="form"   runat="server">
+                                    <asp:linkbutton  runat="server" OnClick="ButtonLogout_Click" CssClass="aspLinkButton">Logout</asp:linkbutton>
+                                         <a href="Logout">Logout</a>
+
+                    </form>--%>
+                                          <%--<form action="/Logout" class="form-inline m-t" >
+    <input type="submit" value="Go to Home" class="btn btn-primary" />
+</form>--%>
+                                </li>
                             </ul>
                         </div>
                         <div class="logo-element">
                             IN+
                         </div>
                     </li>
-
+                    
                     
                      
                     <li class="special-link">
@@ -218,7 +235,9 @@
                     </div>
                     <ul class="nav navbar-top-links navbar-right">
                         <li>
-                            <a href="login.html">
+                            
+                                    <a href="javascript:logout();">  
+                            
                                 <i class="fa fa-sign-out"></i>Log out
                             </a>
                         </li>
@@ -238,11 +257,12 @@
 
             </div>
             <div class="footer fixed">
-                <div class="pull-right">
+              <%--  <div class="pull-right">
                     10GB of <strong>250GB</strong> Free.
-                </div>
+                </div>--%>
                 <div>
-                    <strong>Copyright</strong> Example Company &copy; 2014-2017
+                     
+                    <strong>RPApos 2.5</strong>  &copy; <%: DateTime.Now.Year %>
                 </div>
             </div>
 

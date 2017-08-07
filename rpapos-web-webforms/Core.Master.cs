@@ -14,6 +14,7 @@ namespace rpapos_web_webforms
         public List<MenuModulo> modulos;
         protected void Page_Load(object sender, EventArgs e)
         {
+           
 
             if (Session["ConnectionString"] == null)
             {
@@ -38,5 +39,15 @@ namespace rpapos_web_webforms
         }
 
 
-    }
+        protected void ButtonLogout_Click(object sender, EventArgs e)
+        {
+
+            Response.Redirect("Logout");
+        }
+
+
+
+
+
+        }
 }

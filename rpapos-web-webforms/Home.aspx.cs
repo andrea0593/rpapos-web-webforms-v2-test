@@ -11,7 +11,11 @@ namespace rpapos_web_webforms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["ConnectionString"] == null)
+            {
+                Response.Redirect("/Login");
+                return;
+            }
         }
     }
 }

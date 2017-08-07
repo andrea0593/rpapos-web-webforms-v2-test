@@ -1430,6 +1430,7 @@
     <Content Include="js\plugins\video\responsible-video.js" />
     <Content Include="js\plugins\wow\wow.min.js" />
     <Content Include="Login.aspx" />
+    <Content Include="Logout.aspx" />
     <Content Include="Mantenimientos\MantenimientoBodega.aspx" />
     <Content Include="Mantenimientos\MantenimientoClaseProducto.aspx" />
     <Content Include="Mantenimientos\MantenimientoUnidadMedida.aspx" />
@@ -1543,6 +1544,13 @@
     </Compile>
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Logout.aspx.cs">
+      <DependentUpon>Logout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Logout.aspx.designer.cs">
+      <DependentUpon>Logout.aspx</DependentUpon>
     </Compile>
     <Compile Include="Mantenimientos\MantenimientoBodega.aspx.cs">
       <DependentUpon>MantenimientoBodega.aspx</DependentUpon>
