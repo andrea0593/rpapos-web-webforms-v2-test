@@ -1,4 +1,5 @@
-﻿using System;
+﻿using rpapos_web_webforms.Models.Repo;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace rpapos_web_webforms.Models
 
     }
 
-    public class MenuModuloRepo : DALRepository<MenuModulo>
+    public class MenuModuloRepo : RepoBase<MenuModulo>
     {
         private string c;
         public MenuModuloRepo(string connectionString) : base(connectionString)

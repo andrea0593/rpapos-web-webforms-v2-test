@@ -1,91 +1,87 @@
-﻿using System;
+﻿using rpapos_web_webforms.Models.Repo;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data;
 using System.Data.SqlClient;
 
 namespace rpapos_web_webforms.Models
 {
     public class UnidadMedida
     {
-        [Key, ScaffoldColumn(false)]
-        public int Unidad_Medida { get; set; }  
-        [DisplayName("Descripcion")]
+        public int Unidad_Medida { get; set; }
         public string Descripcion { get; set; }
         public string Simbolo { get; set; }
-        [ScaffoldColumn(false)]
         public DateTime Fecha_Hora { get; set; }
-        [ScaffoldColumn(false)]
         public string UserName { get; set; }
-        [ScaffoldColumn(false)]
-        public  DateTime? M_Fecha_Hora { get; set; }
-        [ScaffoldColumn(false)]
+        public DateTime? M_Fecha_Hora { get; set; }
         public string M_UserName { get; set; }
-        [ScaffoldColumn(false)]
         public int Orden { get; set; }
-        [ScaffoldColumn(false)]
         public int Estado { get; set; }
     }
 
 
-    public class UnidadMedidaRepository : DALRepository<UnidadMedida>
+    public class UnidadMedidaRepository : RepoBase<UnidadMedida>
     {
         public UnidadMedidaRepository(string connectionString) : base(connectionString)
         {
         }
 
-        public  bool Create(UnidadMedida model )
+        public bool Create(UnidadMedida model)
         {
-            string sql =
-
-                @"
+            var query = string.Format(@"
 declare @vUnidad_Medida int = 0
 
-select @vUnidad_Medidamax(unidad_medida)
+select @vUnidad_Medida = max(unidad_medida)
 from tbl_unidad_medida
 set @vUnidad_Medida = isnull(@vUnidad_Medida,0) + 1
 
 insert into tbl_unidad_medida
-(unidad_medida)
-values(@vUnidad_Medida)
+(unidad_medida, descripcion, simbolo, fecha_hora, username, orden, estado)
+values(@vUnidad_Medida, '{0}', '{1}', getdate(), '{2}', {3}, {4})
 
 select @vUnidad_Medida as Unidad_Medida;
+", model.Descripcion, model.Simbolo, model.UserName, model.Orden, model.Estado);
 
-
-";
-            return true;
+            using (var command = new SqlCommand(query))
+            {
+                return NonQuery(command);
+            }
 
         }
 
-        public  bool Update(UnidadMedida model )
+        public bool Update(UnidadMedida model)
         {
-            string sql =
-
-                @"
-
+            string query = string.Format(@"
 update tbl_unidad_medida
-set descripcion = '" + model.Descripcion + @"'
-    ,m_fecha_hora = getdate()
-where unidad_medida = " + model.Unidad_Medida + @"
-";
+set descripcion = '{0}',
+    simbolo = '{1}',
+    m_username = '{2}',
+    m_fecha_hora = getdate()
+where unidad_medida = {3}
+", model.Descripcion, model.Simbolo, model.M_UserName, model.Unidad_Medida);
 
-            return true;
+            using (var command = new SqlCommand(query))
+            {
+                return NonQuery(command);
+            }
         }
 
-        public  bool Delete(UnidadMedida model )
+        public bool Delete(UnidadMedida model)
         {
 
-            string sql =
+            string query = string.Format(@"
+update tbl_unidad_medida
+set Estado = 2,
+    m_username = '{1}',
+    m_fecha_hora = getdate()
+where unidad_medida = {0}
+", model.Unidad_Medida, model.M_UserName);
 
-                @"
-
-delete from tbl_unidad_medida
-where unidad_medida = " + model.Unidad_Medida + @"
-";
-
-            return true;
+            using (var command = new SqlCommand(query))
+            {
+                return NonQuery(command);
+            }
         }
 
 
@@ -100,36 +96,34 @@ where unidad_medida = " + model.Unidad_Medida + @"
             }
         }
 
-     
+
 
 
         public override UnidadMedida PopulateRecord(SqlDataReader reader)
         {
-            var n = new UnidadMedida();
-    
-
-
-            n.Unidad_Medida = Convert.ToInt32(reader["Unidad_Medida"]);
-            n.Descripcion = (string)reader["Descripcion"];
-            n.Simbolo = (string)reader["Simbolo"];
-            n.Fecha_Hora = (DateTime)reader["Fecha_Hora"];
-            n.UserName = (string)reader["UserName"];
+            var modelo = new UnidadMedida()
+            {
+                Unidad_Medida = Convert.ToInt32(reader["Unidad_Medida"]),
+                Descripcion = (string)reader["Descripcion"],
+                Simbolo = (string)reader["Simbolo"],
+                Fecha_Hora = (DateTime)reader["Fecha_Hora"],
+                UserName = (string)reader["UserName"],
+                Orden = Convert.ToInt32(reader["Orden"]),
+                Estado = Convert.ToInt32(reader["Estado"])
+            };
             if (reader["M_Fecha_Hora"] is DateTime)
             {
-                n.M_Fecha_Hora = (DateTime)reader["M_Fecha_Hora"];
+                modelo.M_Fecha_Hora = (DateTime)reader["M_Fecha_Hora"];
             }
             if (reader["M_UserName"] is string)
             {
-                n.M_UserName = (string)reader["M_UserName"];
+                modelo.M_UserName = (string)reader["M_UserName"];
             }
-             
-            n.Orden = Convert.ToInt32(reader["Orden"]);
-            n.Estado = Convert.ToInt32(reader["Estado"]);
-         
-            return n;
+
+            return modelo;
         }
 
- 
+
 
     }
 }
