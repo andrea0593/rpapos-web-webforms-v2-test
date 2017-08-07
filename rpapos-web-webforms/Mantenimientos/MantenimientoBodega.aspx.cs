@@ -12,8 +12,10 @@ namespace rpapos_web_webforms.Mantenimientos
     {
         private BodegaRepository repository;
         private TipoBodegaRepository repositoryTipoBodega;
+        public LocalizacionRepository repositoryLocalizacion;
         public List<Bodega> data = new List<Bodega>();
         public List<TipoBodega> dataTipoBodega = new List<TipoBodega>();
+        public List<Localizacion> dataLocalizacion = new List<Localizacion>();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["ConnectionString"] == null)
@@ -23,6 +25,7 @@ namespace rpapos_web_webforms.Mantenimientos
             }
             repository = new BodegaRepository(Session["ConnectionString"].ToString());
             repositoryTipoBodega = new TipoBodegaRepository(Session["ConnectionString"].ToString());
+            repositoryLocalizacion = new LocalizacionRepository(Session["ConnectionString"].ToString());
             CargarDatos();
         }
 
@@ -30,6 +33,7 @@ namespace rpapos_web_webforms.Mantenimientos
         {
             data = repository.GetAll().ToList();
             dataTipoBodega = repositoryTipoBodega.GetAll().ToList();
+            dataLocalizacion = repositoryLocalizacion.GetForeignRecords().ToList();
         }
     }
 }

@@ -106,7 +106,7 @@
                                         <%=item.TipoBodegaDescripcion %>
                                     </td>
                                     <td>
-                                        <%=item.Trasegar %>
+                                        <%=item.Trasegar ? "Sí" : "No" %>
                                     </td>
                                     <td>
                                         <%=item.LocalizacionDescripcion %>
@@ -115,10 +115,10 @@
                                         <%=item.Orden %>
                                     </td>
                                     <td>
-                                        <%=item.Produccion %>
+                                        <%=item.Produccion ? "Sí" : "No" %>
                                     </td>
                                     <td>
-                                        <%=item.OpcionCompra %>
+                                        <%=item.OpcionCompra ? "Sí" : "No" %>
                                     </td>
                                     <td>
                                         <%=item.Entidad %>
@@ -127,7 +127,7 @@
                                         <%=item.Codigo %>
                                     </td>
                                     <td>
-                                        <%=item.ERPSync %>
+                                        <%=item.ERPSync ? "Sí" : "No" %>
                                     </td>
                                     <td>
                                         <%=item.DescuentoPorcentajeMaximo %>

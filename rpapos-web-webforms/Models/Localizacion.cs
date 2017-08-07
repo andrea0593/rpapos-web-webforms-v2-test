@@ -19,6 +19,15 @@ namespace rpapos_web_webforms.Models
         {
         }
 
+        public IEnumerable<Localizacion> GetForeignRecords()
+        {
+            var query = "Select Localizacion, Descripcion from tbl_Localizacion where Estado = 1;";
+            using (var command = new SqlCommand(query))
+            {
+                return GetForeignRecords(command);
+            }
+        }
+
         public override Localizacion PopulateForeignRecord(SqlDataReader reader)
         {
             return new Localizacion
