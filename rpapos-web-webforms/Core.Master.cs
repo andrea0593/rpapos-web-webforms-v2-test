@@ -18,7 +18,7 @@ namespace rpapos_web_webforms
             if (Session["ConnectionString"] == null)
             {
 
-                Response.Redirect("Login.aspx");
+                Response.Redirect("Login");
             }
             else {
                 if (Session["Menu"] == null)

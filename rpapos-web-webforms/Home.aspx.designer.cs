@@ -11,7 +11,7 @@ namespace rpapos_web_webforms
 {
 
 
-    public partial class Test
+    public partial class Home
     {
     }
 }
