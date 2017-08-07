@@ -147,7 +147,8 @@
 
                                 </ul>
                             </li>
-                            <li><a href="Mantenimientos/MantenimientoUnidadMedida.aspx">Unidad de Medida</a></li>
+                            <li><a href="/Mantenimientos/MantenimientoUnidadMedida.aspx">Unidad de Medida</a></li>
+                            <li><a href="/Mantenimientos/MantenimientoBodega.aspx">Bodega</a></li>
                             <li>
                                 <a href="#">Second Level Item</a></li>
                             <li>
