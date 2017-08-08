@@ -7,11 +7,15 @@ using System.Web.UI.WebControls;
 
 namespace rpapos_web_webforms
 {
-    public partial class Test : System.Web.UI.Page
+    public partial class Home : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["ConnectionString"] == null)
+            {
+                Response.Redirect("/Login");
+                return;
+            }
         }
     }
 }

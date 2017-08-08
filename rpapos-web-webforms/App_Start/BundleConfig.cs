@@ -12,35 +12,47 @@ namespace rpapos_web_webforms
         // For more information on Bundling, visit https://go.microsoft.com/fwlink/?LinkID=303951
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/WebFormsJs").Include(
-                            "~/Scripts/WebForms/WebForms.js",
-                            "~/Scripts/WebForms/WebUIValidation.js",
-                            "~/Scripts/WebForms/MenuStandards.js",
-                            "~/Scripts/WebForms/Focus.js",
-                            "~/Scripts/WebForms/GridView.js",
-                            "~/Scripts/WebForms/DetailsView.js",
-                            "~/Scripts/WebForms/TreeView.js",
-                            "~/Scripts/WebForms/WebParts.js"));
+ 
+            /*
+                <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/customStyle.css" rel="stylesheet">
+    <link href="css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
 
-            // Order is very important for these files to work, they have explicit dependencies
-            bundles.Add(new ScriptBundle("~/bundles/MsAjaxJs").Include(
-                    "~/Scripts/WebForms/MsAjax/MicrosoftAjax.js",
-                    "~/Scripts/WebForms/MsAjax/MicrosoftAjaxApplicationServices.js",
-                    "~/Scripts/WebForms/MsAjax/MicrosoftAjaxTimer.js",
-                    "~/Scripts/WebForms/MsAjax/MicrosoftAjaxWebForms.js"));
+             */
 
-            // Use the Development version of Modernizr to develop with and learn from. Then, when you’re
-            // ready for production, use the build tool at https://modernizr.com to pick only the tests you need
-            bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                            "~/Scripts/modernizr-*"));
+            //bundles.Add(new ScriptBundle("~/bundles/WebFormsJs").Include(
+            //                "~/Scripts/WebForms/WebForms.js",
+            //                "~/Scripts/WebForms/WebUIValidation.js",
+            //                "~/Scripts/WebForms/MenuStandards.js",
+            //                "~/Scripts/WebForms/Focus.js",
+            //                "~/Scripts/WebForms/GridView.js",
+            //                "~/Scripts/WebForms/DetailsView.js",
+            //                "~/Scripts/WebForms/TreeView.js",
+            //                "~/Scripts/WebForms/WebParts.js"));
 
-            ScriptManager.ScriptResourceMapping.AddDefinition(
-                "respond",
-                new ScriptResourceDefinition
-                {
-                    Path = "~/Scripts/respond.min.js",
-                    DebugPath = "~/Scripts/respond.js",
-                });
+            //// Order is very important for these files to work, they have explicit dependencies
+            //bundles.Add(new ScriptBundle("~/bundles/MsAjaxJs").Include(
+            //        "~/Scripts/WebForms/MsAjax/MicrosoftAjax.js",
+            //        "~/Scripts/WebForms/MsAjax/MicrosoftAjaxApplicationServices.js",
+            //        "~/Scripts/WebForms/MsAjax/MicrosoftAjaxTimer.js",
+            //        "~/Scripts/WebForms/MsAjax/MicrosoftAjaxWebForms.js"));
+
+            //// Use the Development version of Modernizr to develop with and learn from. Then, when you’re
+            //// ready for production, use the build tool at https://modernizr.com to pick only the tests you need
+            //bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
+            //                "~/Scripts/modernizr-*"));
+
+            //ScriptManager.ScriptResourceMapping.AddDefinition(
+            //    "respond",
+            //    new ScriptResourceDefinition
+            //    {
+            //        Path = "~/Scripts/respond.min.js",
+            //        DebugPath = "~/Scripts/respond.js",
+            //    });
         }
     }
 }
