@@ -14,11 +14,12 @@ namespace rpapos_web_webforms
         public List<MenuModulo> modulos;
         protected void Page_Load(object sender, EventArgs e)
         {
+           
 
             if (Session["ConnectionString"] == null)
             {
 
-                Response.Redirect("Login.aspx");
+                Response.Redirect("/Login");
             }
             else {
                 if (Session["Menu"] == null)
@@ -38,5 +39,10 @@ namespace rpapos_web_webforms
         }
 
 
-    }
+
+
+
+
+
+        }
 }

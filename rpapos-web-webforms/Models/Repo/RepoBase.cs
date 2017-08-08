@@ -20,7 +20,7 @@ namespace rpapos_web_webforms.Models.Repo
 
         public abstract T PopulateRecord(SqlDataReader reader);
 
-
+        public abstract T PopulateForeignRecord(SqlDataReader reader);
 
 
 
@@ -101,7 +101,31 @@ namespace rpapos_web_webforms.Models.Repo
             return list;
         }
 
+        protected IEnumerable<T> GetForeignRecords(SqlCommand command)
+        {
+            var list = new List<T>();
+            command.Connection = connection;
+            connection.Open();
+            try
+            {
+                var reader = command.ExecuteReader();
+                try
+                {
+                    while (reader.Read())
+                        list.Add(PopulateForeignRecord(reader));
+                }
+                finally
+                {
 
+                    reader.Close();
+                }
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return list;
+        }
     }
 
 }

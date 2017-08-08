@@ -12,9 +12,7 @@ namespace rpapos_web_webforms.Models
         public int Unidad_Medida { get; set; }
         public string Descripcion { get; set; }
         public string Simbolo { get; set; }
-        public DateTime Fecha_Hora { get; set; }
         public string UserName { get; set; }
-        public DateTime? M_Fecha_Hora { get; set; }
         public string M_UserName { get; set; }
         public int Orden { get; set; }
         public int Estado { get; set; }
@@ -84,9 +82,6 @@ where unidad_medida = {0}
             }
         }
 
-
-
-
         public IEnumerable<UnidadMedida> GetAll()
         {
 
@@ -96,9 +91,6 @@ where unidad_medida = {0}
             }
         }
 
-
-
-
         public override UnidadMedida PopulateRecord(SqlDataReader reader)
         {
             var modelo = new UnidadMedida()
@@ -106,15 +98,10 @@ where unidad_medida = {0}
                 Unidad_Medida = Convert.ToInt32(reader["Unidad_Medida"]),
                 Descripcion = (string)reader["Descripcion"],
                 Simbolo = (string)reader["Simbolo"],
-                Fecha_Hora = (DateTime)reader["Fecha_Hora"],
                 UserName = (string)reader["UserName"],
                 Orden = Convert.ToInt32(reader["Orden"]),
                 Estado = Convert.ToInt32(reader["Estado"])
             };
-            if (reader["M_Fecha_Hora"] is DateTime)
-            {
-                modelo.M_Fecha_Hora = (DateTime)reader["M_Fecha_Hora"];
-            }
             if (reader["M_UserName"] is string)
             {
                 modelo.M_UserName = (string)reader["M_UserName"];
@@ -123,8 +110,10 @@ where unidad_medida = {0}
             return modelo;
         }
 
-
-
+        public override UnidadMedida PopulateForeignRecord(SqlDataReader reader)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

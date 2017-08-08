@@ -7,10 +7,28 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace rpapos_web_webforms {
+namespace rpapos_web_webforms.Mantenimientos {
     
     
     public partial class MantenimientoUnidadMedida {
+        
+        /// <summary>
+        /// defaultButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button defaultButton;
+        
+        /// <summary>
+        /// defaultTextbox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox defaultTextbox;
         
         /// <summary>
         /// lblModalTitle control.

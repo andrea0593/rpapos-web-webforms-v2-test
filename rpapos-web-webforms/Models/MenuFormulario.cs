@@ -116,6 +116,10 @@ WHERE T1.Aplicacion = " + Aplicacion+
             }
         }
 
+        public override MenuFormulario PopulateForeignRecord(SqlDataReader reader)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }

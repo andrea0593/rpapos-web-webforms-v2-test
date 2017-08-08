@@ -11,15 +11,24 @@ namespace rpapos_web_webforms
 {
     public partial class Login : System.Web.UI.Page
     {
+        public static string getDomain()
+        {
+            var domain = HttpContext.Current.Request.Url.Host.ToString().ToLower();
+            if (domain.Contains("-test"))
+            {
+                domain = domain.Replace("-test", "");
+            }
+
+            return domain;
+
+        }
+
         private string subDomain;
         protected void Page_Load(object sender, EventArgs e)
         {
 
-
-            var domain = HttpContext.Current.Request.Url.Host.ToString().ToLower();
-            if (domain.Contains("-test")) {
-            domain =     domain.Replace("-test", "");
-            }
+            Response.Cache.SetNoStore();
+            var domain = Login.getDomain();
             var url = domain.Split('.');
 
 #if DEBUG
@@ -82,7 +91,7 @@ namespace rpapos_web_webforms
                     Session["Estacion_Trabajo_Descripcion"] = dataReader["Estacion_Trabajo_Descripcion"];
 
                     Session["ConnectionString"] = connectionString;
-                    Response.Redirect("Test.aspx");
+                    Response.Redirect("/Home");
                 }
                 else
                 {

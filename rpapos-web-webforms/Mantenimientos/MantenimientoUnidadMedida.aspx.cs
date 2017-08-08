@@ -5,7 +5,7 @@ using System.Web.UI;
 using System.Linq;
 using System.Web.UI.WebControls;
 
-namespace rpapos_web_webforms
+namespace rpapos_web_webforms.Mantenimientos
 {
     public partial class MantenimientoUnidadMedida : Page
     {
@@ -31,13 +31,13 @@ namespace rpapos_web_webforms
 
         protected void buttonCreate_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(textboxDescripcion.Text) || string.IsNullOrWhiteSpace(textboxDescripcion.Text) || string.IsNullOrEmpty(textboxSimbolo.Text) || string.IsNullOrWhiteSpace(textboxSimbolo.Text))
+                return;
             var um = new UnidadMedida
             {
                 Descripcion = textboxDescripcion.Text,
                 Simbolo = textboxSimbolo.Text,
                 Estado = 1,
-                Fecha_Hora = DateTime.UtcNow,
-                M_Fecha_Hora = null,
                 M_UserName = null,
                 Orden = 1,
                 UserName = Session["UserName"].ToString()
@@ -55,10 +55,13 @@ namespace rpapos_web_webforms
             textboxActualizarId.Text = string.Empty;
             textboxActualizarSimbolo.Text = string.Empty;
             textboxEliminarId.Text = string.Empty;
+            defaultTextbox.Text = string.Empty;
         }
 
         protected void buttonUpdate_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(textboxActualizarId.Text) || string.IsNullOrWhiteSpace(textboxActualizarId.Text) || string.IsNullOrEmpty(textboxActualizarDescripcion.Text) || string.IsNullOrWhiteSpace(textboxActualizarDescripcion.Text) || string.IsNullOrEmpty(textboxActualizarSimbolo.Text) || string.IsNullOrWhiteSpace(textboxActualizarSimbolo.Text))
+                return;
             var unidadMedida = new UnidadMedida
             {
                 Unidad_Medida = int.Parse(textboxActualizarId.Text),
@@ -74,6 +77,8 @@ namespace rpapos_web_webforms
 
         protected void buttonDelete_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(textboxEliminarId.Text) || string.IsNullOrWhiteSpace(textboxEliminarId.Text))
+                return;
             var id = int.Parse(textboxEliminarId.Text);
             var unidadAEliminar = data.Find(x => x.Unidad_Medida == id);
             unidadAEliminar.M_UserName = Session["UserName"].ToString();
@@ -90,6 +95,24 @@ namespace rpapos_web_webforms
 
             }
              
+        }
+
+        protected void defaultButton_Click(object sender, EventArgs e)
+        {
+            switch(defaultTextbox.Text)
+            {
+                case "create":
+                    buttonCreate_Click(sender, e);
+                    break;
+                case "update":
+                    buttonUpdate_Click(sender, e);
+                    break;
+                case "delete":
+                    buttonDelete_Click(sender, e);
+                    break;
+                default:
+                    return;
+            }
         }
     }
 }
