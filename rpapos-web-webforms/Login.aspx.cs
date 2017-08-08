@@ -91,7 +91,7 @@ namespace rpapos_web_webforms
                     Session["Estacion_Trabajo_Descripcion"] = dataReader["Estacion_Trabajo_Descripcion"];
 
                     Session["ConnectionString"] = connectionString;
-                    Response.Redirect("Home");
+                    Response.Redirect("/Home");
                 }
                 else
                 {

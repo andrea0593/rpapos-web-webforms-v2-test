@@ -19,7 +19,7 @@ namespace rpapos_web_webforms
             if (Session["ConnectionString"] == null)
             {
 
-                Response.Redirect("Login");
+                Response.Redirect("/Login");
             }
             else {
                 if (Session["Menu"] == null)
@@ -39,11 +39,6 @@ namespace rpapos_web_webforms
         }
 
 
-        protected void ButtonLogout_Click(object sender, EventArgs e)
-        {
-
-            Response.Redirect("Logout");
-        }
 
 
 

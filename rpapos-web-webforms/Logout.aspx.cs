@@ -29,7 +29,7 @@ namespace rpapos_web_webforms
             Response.Cache.SetNoStore();
 
             Response.AppendHeader("pragma", "no-cache");
-            Response.Redirect("Login");
+            Response.Redirect("/Home");
         }
     }
 }
