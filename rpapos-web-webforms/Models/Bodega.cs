@@ -27,11 +27,12 @@ namespace rpapos_web_webforms.Models
         public int Orden { get; set; }
         public bool Produccion { get; set; }
         public bool OpcionCompra { get; set; }
-        public int Entidad { get; set; }
+        //public int Entidad { get; set; } siempre es 1
         public string Codigo { get; set; }
         public bool ERPSync { get; set; }
         public double DescuentoPorcentajeMaximo { get; set; }
         public int DispositivoIOGrupo { get; set; }
+        public string DispositivoIOGrupoNombre { get; set; }
     }
 
     public class BodegaRepository : RepoBase<Bodega>
@@ -54,7 +55,7 @@ Insert Into tbl_Bodega
 Opc_Compra, Entidad, Codigo, ERP_Sync, Descuento_Por_Maximo, Dispositivo_IO_Grupo)
 values
 (@bodega, 1, '{model.Nombre}', @bodega, 1, null, getdate(), '{model.UserName}', {model.TipoBodega}, {(model.Trasegar ? 1 : 0)}, {model.Localizacion}, {model.Orden}, {(model.Produccion ? 1 : 0)}, 
-{(model.OpcionCompra ? 1 : 0)}, {model.Entidad}, '{model.Codigo}', {(model.ERPSync ? 1 : 0)}, {model.DescuentoPorcentajeMaximo}, '{model.DispositivoIOGrupo}')";
+{(model.OpcionCompra ? 1 : 0)}, 1, '{model.Codigo}', {(model.ERPSync ? 1 : 0)}, {model.DescuentoPorcentajeMaximo}, {model.DispositivoIOGrupo})";
 
             using (var command = new SqlCommand(query))
             {
@@ -75,7 +76,6 @@ Set Nombre = '{model.Nombre}',
     Orden = {model.Orden},
     Produccion = {(model.Produccion ? 1 : 0)},
     Opc_Compra = {(model.OpcionCompra ? 1 : 0)},
-    Entidad = {model.Entidad},
     Descuento_Por_Maximo = {model.DescuentoPorcentajeMaximo},
     Dispositivo_IO_Grupo = {model.DispositivoIOGrupo},
     Codigo = '{model.Codigo}',
@@ -97,12 +97,15 @@ Set Nombre = '{model.Nombre}',
         {
             var query = @"
 Select b.Bodega, b.Nombre, b.Fecha_Hora, b.UserName, b.M_Fecha_Hora, b.M_UserName, tb.Tipo_Bodega, tb.Descripcion as 'Tipo_Bodega_Descripcion', 
-b.Trasegar, b.Localizacion, l.Descripcion as 'Localizacion_Descripcion', b.Orden, b.Produccion, b.Opc_Compra, b.Entidad, b.Codigo, b.ERP_Sync, b.Descuento_Por_Maximo, b.Dispositivo_IO_Grupo
+b.Trasegar, b.Localizacion, l.Descripcion as 'Localizacion_Descripcion', b.Orden, b.Produccion, b.Opc_Compra, b.Entidad, b.Codigo, b.ERP_Sync, 
+b.Descuento_Por_Maximo, iog.Dispositivo_IO_Grupo, iog.Nombre as 'Dispositivo_IO_Grupo_Nombre'
 From tbl_Bodega b
 Inner Join tbl_Tipo_Bodega tb
 on b.Tipo_Bodega = tb.Tipo_Bodega
 Inner Join tbl_Localizacion l
-on b.Localizacion = l.Localizacion;";
+on b.Localizacion = l.Localizacion
+Inner Join tbl_Dispositivo_IO_Grupo iog
+on b.Dispositivo_IO_Grupo = iog.Dispositivo_IO_Grupo;";
             using (var command = new SqlCommand(query))
             {
                 return GetRecords(command);
@@ -124,11 +127,11 @@ on b.Localizacion = l.Localizacion;";
                 Orden = Convert.ToInt32(reader["Orden"]),
                 Produccion = Convert.ToInt32(reader["Produccion"]) == 1 ? true : false,
                 OpcionCompra = Convert.ToInt32(reader["Opc_Compra"]) == 1 ? true : false,
-                Entidad = Convert.ToInt32(reader["Entidad"]),
-                DispositivoIOGrupo = Convert.ToInt32(reader["Dispositivo_IO_Grupo"])
+                DispositivoIOGrupo = Convert.ToInt32(reader["Dispositivo_IO_Grupo"]),
+                DispositivoIOGrupoNombre = (string)reader["Dispositivo_IO_Grupo_Nombre"],
             };
 
-            if(reader["Descuento_Por_Maximo"] is string)
+            if(!string.IsNullOrEmpty(reader["Descuento_Por_Maximo"].ToString()))
             {
                 model.DescuentoPorcentajeMaximo = Convert.ToDouble(reader["Descuento_Por_Maximo"]);
             }
@@ -143,7 +146,7 @@ on b.Localizacion = l.Localizacion;";
                 model.Codigo = (string)reader["Codigo"];
             }
 
-            if(reader["ERP_Sync"] is string)
+            if(reader["ERP_Sync"] is int)
             {
                 model.ERPSync = Convert.ToInt32(reader["ERP_Sync"]) == 1;
             }

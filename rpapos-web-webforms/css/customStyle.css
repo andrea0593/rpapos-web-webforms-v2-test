@@ -6,3 +6,26 @@
 div.footer {
     z-index:2001 !important;
 }
+
+.input-group-addon {
+    padding: .5rem .75rem;
+    margin-bottom: 0;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.25;
+    color: #464a4c;
+    text-align: center;
+    background-color: #eceeef;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: .25rem;
+}
+
+.form-check-inline {
+    display: inline-block;
+}
+
+_forms.scss:204 .form-check {
+    position: relative;
+    display: block;
+    margin-bottom: .5rem;
+}

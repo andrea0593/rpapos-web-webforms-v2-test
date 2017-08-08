@@ -7,19 +7,19 @@ using System.Data.SqlClient;
 
 namespace rpapos_web_webforms.Models
 {
-    public class TipoBodega
+    public class TipoBodegaModel
     {
         public int Id { get; set; }
         public string Descripcion { get; set; }
     }
 
-    public class TipoBodegaRepository : RepoBase<TipoBodega>
+    public class TipoBodegaRepository : RepoBase<TipoBodegaModel>
     {
         public TipoBodegaRepository(string connectionString) : base(connectionString)
         {
         }
 
-        public IEnumerable<TipoBodega> GetAll()
+        public IEnumerable<TipoBodegaModel> GetAll()
         {
             var query = "Select * from tbl_Tipo_Bodega;";
             using (var command = new SqlCommand(query))
@@ -28,14 +28,14 @@ namespace rpapos_web_webforms.Models
             }
         }
 
-        public override TipoBodega PopulateForeignRecord(SqlDataReader reader)
+        public override TipoBodegaModel PopulateForeignRecord(SqlDataReader reader)
         {
             throw new NotImplementedException();
         }
 
-        public override TipoBodega PopulateRecord(SqlDataReader reader)
+        public override TipoBodegaModel PopulateRecord(SqlDataReader reader)
         {
-            return new TipoBodega
+            return new TipoBodegaModel
             {
                 Id = Convert.ToInt32(reader["Tipo_Bodega"]),
                 Descripcion = (string)reader["Descripcion"]

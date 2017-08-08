@@ -7,19 +7,19 @@ using System.Data.SqlClient;
 
 namespace rpapos_web_webforms.Models
 {
-    public class Localizacion
+    public class LocalizacionModel
     {
         public int Id { get; set; }
         public string Descripcion { get; set; }
     }
 
-    public class LocalizacionRepository : RepoBase<Localizacion>
+    public class LocalizacionRepository : RepoBase<LocalizacionModel>
     {
         public LocalizacionRepository(string connectionString) : base(connectionString)
         {
         }
 
-        public IEnumerable<Localizacion> GetForeignRecords()
+        public IEnumerable<LocalizacionModel> GetForeignRecords()
         {
             var query = "Select Localizacion, Descripcion from tbl_Localizacion where Estado = 1;";
             using (var command = new SqlCommand(query))
@@ -28,16 +28,16 @@ namespace rpapos_web_webforms.Models
             }
         }
 
-        public override Localizacion PopulateForeignRecord(SqlDataReader reader)
+        public override LocalizacionModel PopulateForeignRecord(SqlDataReader reader)
         {
-            return new Localizacion
+            return new LocalizacionModel
             {
                 Id = Convert.ToInt32(reader["Localizacion"]),
                 Descripcion = (string)reader["Descripcion"]
             };
         }
 
-        public override Localizacion PopulateRecord(SqlDataReader reader)
+        public override LocalizacionModel PopulateRecord(SqlDataReader reader)
         {
             throw new NotImplementedException();
         }

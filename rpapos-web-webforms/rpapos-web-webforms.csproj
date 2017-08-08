@@ -1560,6 +1560,7 @@
     </Compile>
     <Compile Include="Models\Bodega.cs" />
     <Compile Include="Models\ClaseProducto.cs" />
+    <Compile Include="Models\DispositivoIOGrupo.cs" />
     <Compile Include="Models\Localizacion.cs" />
     <Compile Include="Models\MenuFormulario.cs" />
     <Compile Include="Models\MenuModulo.cs" />

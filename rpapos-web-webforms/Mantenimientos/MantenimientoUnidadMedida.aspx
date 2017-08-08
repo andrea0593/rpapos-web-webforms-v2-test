@@ -82,34 +82,35 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="ibox-content">
-                        <table id="gridUnidadMedida" class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Descripción</th>
-                                    <th>Símbolo</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <% foreach (var item in data)
-                                    {
-                                %>
-                                <tr>
-                                    <td>
-                                        <%=item.Descripcion %>
-                                    </td>
-                                    <td>
-                                        <%=item.Simbolo %>
-                                    </td>
-                                    <td>
-                                        <a onclick="ShowUpdateModal(<%=item.Unidad_Medida %>,'<%=item.Descripcion %>','<%=item.Simbolo %>')" class="btn btn-warning btn-xs">Editar</a>
-                                        <a onclick="ShowDeleteModal(<%=item.Unidad_Medida %>,'<%=item.Descripcion %>','<%=item.Simbolo %>');" class="btn btn-xs btn-danger">Eliminar</a>
-                                    </td>
-                                </tr>
-                                <%  } %>
-                            </tbody>
-                        </table>
-
+                        <div class="table-responsive">
+                            <table id="gridUnidadMedida" class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Descripción</th>
+                                        <th>Símbolo</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% foreach (var item in data)
+                                        {
+                                    %>
+                                    <tr>
+                                        <td>
+                                            <%=item.Descripcion %>
+                                        </td>
+                                        <td>
+                                            <%=item.Simbolo %>
+                                        </td>
+                                        <td>
+                                            <a onclick="ShowUpdateModal(<%=item.Unidad_Medida %>,'<%=item.Descripcion %>','<%=item.Simbolo %>')" class="btn btn-warning btn-xs">Editar</a>
+                                            <a onclick="ShowDeleteModal(<%=item.Unidad_Medida %>,'<%=item.Descripcion %>','<%=item.Simbolo %>');" class="btn btn-xs btn-danger">Eliminar</a>
+                                        </td>
+                                    </tr>
+                                    <%  } %>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
