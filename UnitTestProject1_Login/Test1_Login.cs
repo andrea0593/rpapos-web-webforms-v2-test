@@ -9,24 +9,29 @@ using OpenQA.Selenium.Support.UI;
 namespace UnitTestProject1_Login
 {
     [TestClass]
-    public class UnitTest1
+    public class LoginTest
     {
 
-        private string baseURL = "http://localhost:62008/Login.aspx";
-        private RemoteWebDriver driver = new ChromeDriver();
+        private static string baseURL;
+        private static RemoteWebDriver driver;
+        private static WebDriverWait wait;
         public TestContext TestContext { get; set; }
 
-        [TestMethod]
-        [TestCategory("Selenium")]
-        [Priority(1)]
-        [Owner("Chrome")]
 
-        public void TestMethod1()
+        [ClassInitialize()]
+        public static void MyClassInitialize(TestContext context)
         {
-            //Try to login with an invalid user
+            driver = new ChromeDriver();
+            baseURL = "http://localhost:62008/Login.aspx";
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(7));
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(10);
+        }
 
-            driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(20));
-            driver.Manage().Timeouts().SetPageLoadTimeout(TimeSpan.FromSeconds(15));
+        [TestMethod]
+        public void Login()
+        {
+            //Navigate to the login page and try to login with an invalid user and password
             driver.Navigate().GoToUrl(baseURL);
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
 
@@ -45,8 +50,6 @@ namespace UnitTestProject1_Login
 
             IWebElement login_button = driver.FindElementById("ButtonLogin");
             login_button.Click();
-
-            //wait.Until(ExpectedConditions.AlertIsPresent());
             Assert.IsTrue(isAlertPresent(), "Test failed. It should display an alert");
             driver.SwitchTo().Alert().Accept();
 
@@ -66,7 +69,6 @@ namespace UnitTestProject1_Login
 
 
             //Login using a valid username and password
-
             username = driver.FindElementById("TextBoxUsername");
             username.Clear();
             username.SendKeys("SA");
@@ -78,11 +80,9 @@ namespace UnitTestProject1_Login
             login_button = driver.FindElementById("ButtonLogin");
             login_button.Click();
 
-            driver.Manage().Timeouts().SetPageLoadTimeout(TimeSpan.FromSeconds(15));
             Assert.AreEqual(driver.Url, "http://localhost:62008/Test.aspx");
-
-
         }
+        
 
 
         public bool isAlertPresent()
@@ -98,19 +98,14 @@ namespace UnitTestProject1_Login
             }   // catch 
         }   // isAlertPresent()
 
-        [TestCleanup()]
-        public void MyTestCleanup()
+
+
+
+        [ClassCleanup()]
+        public static void MyClassCleanup()
         {
             driver.Quit();
         }
-
-        [TestInitialize()]
-        public void MyTestInitialize()
-        {
-
-        }
-
-
     }
 
 }

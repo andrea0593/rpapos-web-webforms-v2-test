@@ -1,0 +1,1 @@
+<Playlist Version="1.0"><Add Test="UnitTestProject1_Login.Test2_UnidadDeMedida.T01_Login" /><Add Test="UnitTestProject1_Login.Test2_UnidadDeMedida.T02_NavigateToUnidaDeMedida" /><Add Test="UnitTestProject1_Login.Test2_UnidadDeMedida.T03_UsingTheSearchForm" /><Add Test="UnitTestProject1_Login.Test2_UnidadDeMedida.T04_EditMeasureUnit" /></Playlist>
